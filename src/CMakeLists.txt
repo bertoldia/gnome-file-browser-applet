@@ -27,13 +27,14 @@ ELSE (ENABLE_GTK_HOTKEY)
 ENDIF (ENABLE_GTK_HOTKEY)
 MESSAGE("")
 
-#CONFIGURE_FILE ("${FILE_BROWSER_APPLET_SOURCE_DIR}/src/config.h.in" 
+#CONFIGURE_FILE ("${FILE_BROWSER_APPLET_SOURCE_DIR}/src/config.h.in"
                 #"${FILE_BROWSER_APPLET_SOURCE_DIR}/src/config.h")
 
 SET (SRCS main.cc
-     #PanelMenuBar.cc
+     PanelMenuBar.cc
      FileItem.cc
-     DirectoryListing.cc)
+     DirectoryListing.cc
+     Preferences.cc)
 
 ADD_EXECUTABLE (${EXEC} ${SRCS})
 TARGET_LINK_LIBRARIES (${EXEC} ${LIBS})

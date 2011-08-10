@@ -2,6 +2,7 @@
 #include <giomm.h>
 #include "DirectoryListing.h"
 #include "FileItem.h"
+#include "Preferences.h"
 
 DirectoryListing::DirectoryListing(std::string path) :
   path(path),
@@ -13,7 +14,7 @@ DirectoryListing::~DirectoryListing(){}
 void
 DirectoryListing::refresh() {
   clear();
-  _populate();
+  populate();
   show_all();
 }
 
@@ -25,24 +26,24 @@ DirectoryListing::clear () {
 
 void
 DirectoryListing::populate() {
-  for (int i = 0; i < 10; i++) {
-    item = manage(new Gtk::MenuItem("sdfsfsdF"));
-    append(*item);
-  }
-}
+  Preferences* prefs = Preferences::getInstance();
 
-void
-DirectoryListing::_populate() {
   Glib::RefPtr<Gio::File> directory = Gio::File::create_for_path(path);
   try {
     Glib::RefPtr<Gio::FileEnumerator> children = directory->enumerate_children();
     Glib::RefPtr<Gio::FileInfo> child_info;
     while (child_info = children->next_file()) {
+      if ((!prefs->show_hidden() && child_info->is_hidden()) ||
+          (prefs->show_dirs_only() && (Gio::FILE_TYPE_DIRECTORY != child_info->get_file_type()))) continue;
+
       FileItem* file_item = manage(new FileItem(child_info, path + "/" + child_info->get_name()));
       append((Gtk::MenuItem&)*file_item);
     }
+    children->close();
   } catch (Gio::Error e) {
     std::cout << e.what() << std::endl;
+    item = manage(new Gtk::MenuItem(e.what()));
+    append(*item);
   }
 }
 

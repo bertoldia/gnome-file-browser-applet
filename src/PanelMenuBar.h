@@ -1,5 +1,5 @@
-#ifndef PANLE_MENU_BAR
-#define PANLE_MENU_BAR
+#ifndef PANEL_MENU_BAR
+#define PANEL_MENU_BAR
 
 #include <gtkmm.h>
 

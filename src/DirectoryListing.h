@@ -10,7 +10,6 @@ class DirectoryListing : public Gtk::Menu {
 
     void clear();
     void populate();
-    void _populate();
     void create();
     void add_header();
     void add_directories();

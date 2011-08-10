@@ -1,6 +1,7 @@
 #include <iostream>
 #include <giomm.h>
 #include "FileItem.h"
+#include "Preferences.h"
 
 FileItem::FileItem(Glib::RefPtr<Gio::FileInfo> file_info, std::string path) :
   Gtk::ImageMenuItem(file_info->get_display_name()),
@@ -35,8 +36,20 @@ FileItem::add_markup(){}
 
 void
 FileItem::add_image(){
-  Gtk::Image* image = manage(new Gtk::Image());
-  image->set(file_info->get_icon(), Gtk::ICON_SIZE_MENU);
+  Preferences* prefs = Preferences::getInstance();
+  Gtk::Image* image = NULL;
+
+  if (prefs->show_thumbnails()) {
+    std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
+    if (!thumbnail.empty()) {
+      image = manage(new Gtk::Image(thumbnail));
+    }
+  }
+
+  if (image == NULL) {
+    image = manage(new Gtk::Image());
+    image->set(file_info->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
+  }
   set_image(*image);
   set_always_show_image(true);
 }
