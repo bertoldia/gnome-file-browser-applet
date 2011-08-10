@@ -1,0 +1,128 @@
+<gconfschemafile>
+    <schemalist>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/show_icon</key>
+        <owner>file-browser-applet</owner>
+        <type>bool</type>
+        <default>TRUE</default>
+        <locale name="C">
+          <short>Show the icon in the menu bar</short>
+          <long>Show the icon in the menu bar</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/show_thumbnail</key>
+        <owner>file-browser-applet</owner>
+        <type>bool</type>
+        <default>TRUE</default>
+        <locale name="C">
+          <short>Show image and document thumbnails if they exists</short>
+          <long>Show image and document thumbnails if the exists</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/horizontal_text</key>
+        <owner>file-browser-applet</owner>
+        <type>bool</type>
+        <default>TRUE</default>
+        <locale name="C">
+          <short>Specify text orientation when the panel is vertical</short>
+          <long>If false, the panel-menu-bar text will be oriented vertically when the panel is vertical. Otherwise it will be oriented horizontally</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/icon</key>
+        <owner>file-browser-applet</owner>
+        <type>string</type>
+        <default>user-home</default>
+        <locale name="C">
+          <short>Path to the icon to show in the menu bar</short>
+          <long>Path to the icon to show in the menu bar</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/terminal</key>
+        <owner>file-browser-applet</owner>
+        <type>string</type>
+        <default>gnome-terminal</default>
+        <locale name="C">
+          <short>The terminal to use when middle-clicking on a directory</short>
+          <long>The terminal to use when middle-clicking on a directory</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/editor</key>
+        <owner>file-browser-applet</owner>
+        <type>string</type>
+        <default>gedit</default>
+        <locale name="C">
+          <short>The editor to use when middle-clicking on a file</short>
+          <long>The editor to use when middle-clicking on a file</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/show_hidden</key>
+        <owner>file-browser-applet</owner>
+        <type>bool</type>
+        <default>FALSE</default>
+        <locale name="C">
+          <short>Show hidden files</short>
+          <long>Show hidden files</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/hide_files</key>
+        <owner>file-browser-applet</owner>
+        <type>bool</type>
+        <default>FALSE</default>
+        <locale name="C">
+          <short>Don't show files when displaying a folder's contents.</short>
+          <long>Don't show files when displaying a folder's contents.</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/confirm_execute</key>
+        <owner>file-browser-applet</owner>
+        <type>bool</type>
+        <default>TRUE</default>
+        <locale name="C">
+          <short>Ask for confirmation before running executable text files.</short>
+          <long>Ask for confirmation before running executable text files.</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/labels</key>
+        <owner>file-browser-applet</owner>
+        <type>list</type>
+    <list_type>string</list_type>
+        <default>[Home]</default>
+        <locale name="C">
+          <short>The labels to use for the directories</short>
+          <long>The labels to use for the directories</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/file-browser-applet/prefs/dirs</key>
+        <owner>file-browser-applet</owner>
+        <type>list</type>
+    <list_type>string</list_type>
+        <default>[]</default>
+        <locale name="C">
+          <short>The directories to show in the menu bar</short>
+          <long>The directories to show in the menu bar</long>
+        </locale>
+      </schema>
+
+  </schemalist>
+</gconfschemafile>

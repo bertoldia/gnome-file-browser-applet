@@ -1,0 +1,7 @@
+Browse and open files in your computer from the GNOME panel.
+File Browser Applet is an applet for the GNOME Panel. It lets you browse and
+open files in your home directory from the gnome panel, without having to open
+a file manager. It is _not_ intended as replacement to proper file managers
+like nautilus. Sometimes you (like me) just want to open a file and don't want
+to have to open a file manager, browse to and open the file, then close the
+file manager. This Applet just saves you couple of clicks.

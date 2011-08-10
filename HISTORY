@@ -1,0 +1,135 @@
+Version 0.6.8
+*************
+    * Fixed bug #61
+
+Version 0.6.7
+*************
+    * Fixed bug #84 (No Icons shown under Ubuntu 10.10).
+    * Fixed bug #81 (Text files with executable bit are run when they shouldn't be.)
+    * Fixed bug #80 (Included locale.h in main.c)
+    * Moved source hosting to http://gitorious.org/gnome-file-browser-applet
+
+Version 0.6.6
+*************
+    * Added improved tooltips.
+    * Fixed bug #76 (Added "Edit File", "Edit File As Root", "Execute File as
+      As Root", "Open Folder As Root", "Open Folder In Terminal" and " Open
+      Folder In Terminal As Root" context menu actions).
+    * Fixed bug #75 ("hide files" configuration option).
+
+Version 0.6.5
+*************
+    * Fixed bug #69 (thanks to Ivan Baldo for report and fix).
+    * Fixed bug #71.
+    * Fixed issue described by pedrib in bug #48 (but is not actually bug #48).
+
+Version 0.6.4
+*************
+    * Made displaying of thumbnails a configuration option.
+
+Version 0.6.3
+*************
+    * Added displaying of thumbnails (if available) instead of icons.
+    * Usability improvements.
+    * Code cleanups.
+
+Version 0.6.2
+*************
+    * Added preliminary DnD dragging out of applet. MOVE is the default behaviour.
+    * Some code cleanups and plugged memory leaks.
+    * Slightly improved "New Folder" dialog.
+    * Migrated to gtk+ builder from libglade.
+
+Version 0.6.1
+*************
+    * Added mnemonic keyboard shortcut to menus for faster keyboard navigation.
+    * Added recent documents' support.
+    * Improved menu browser focus after context menu close.
+    * Fixed bugs #43, 44, 45, 49, 51, 56, 59, 60, 62.
+
+Version 0.6.0
+*************
+    * Added context menu with a few actions (open-with, new folder here, delete
+      file/folder, create/extract archive, create CD/DVD from file/folder,
+      compile a tex file).
+    * Added configuration option to make text vertical/horizontal when the
+      panel is vertical.
+    * Added tooltips to configuration dialog.
+    * Fixed bugs #21, 30, 34, 37, 39.
+    * Plugged some memory leaks (thanks Silvio Ricardo Cordeiro).
+    * Lots of code cleanup.
+
+Version 0.5.9
+*************
+    * Fixed a few bugs in the build system (thanks Serkan Kaba).
+
+Version 0.5.8
+*************
+    * Migrated to gio. This removed dependency on gnome-vfs and libgnomedesktop
+      (yay!).
+    * Fixed bugs #10, 12, 28, 32.
+    * Build system fixes (thanks to Deji Akingunola).
+    * Added optional keyboard activation (a.k.a. hotkey). libgtkhotkey required
+      for this functionality.
+    * Fixed size of icons in menu items to 20px.
+    * Improved keyboard navigation (a lot).
+    * Better long file name ellipsize
+    * Added optional keyboard activation (a.k.a. hotkey). libgtkhotkey is
+      required for this functionality. Activation is currently bound to
+      <Super>h.
+
+Version 0.5.6
+*************
+    * Fixed longstanding bug #2. The panel-menu-bar now catches left clicks and
+      pops up the applet context menu, allowing for the removal of the applet
+      handle bars.
+
+Version 0.5.5
+*************
+    * Renamed applet to "File Browser Applet".
+    * Improved configuration dialog (much thanks to Ivan N. Zlatev).
+    * Added support for .desktop files.
+    * New actions associated with left and middle click: Left-click is default
+      action (run if file is executable, open with default application
+      otherwise). Middle-click opens file for editing with configured editor.
+    * Fixes to build system.
+
+Version 0.5.4
+*************
+    * Added configuration dialog.
+    * Fixed bugs #5, 13, 16,18.
+    * "Addressed" bugs 17, 20.
+    * Plugged a memory leak.
+    * Added options to Build system.
+    * Re-implemented MenuBrowser object as a proper GObject.
+    * Added tooltips to truncated filenames (thanks to Stefano Maggiolo).
+
+Version 0.5.3
+*************
+    * Re-implemented preferences back end to use GConf which means each
+      instance of the applet can show different directories.
+
+Version 0.5.2
+*************
+    * Added handling of changes in panel (size allocation, background and
+      orientation).
+
+Version 0.5.1
+*************
+    * Fixed bug #3: Crash on opening folders without access permissions.
+    * Added messages for empty directories or failure to open a directory.
+    * Slightly improved appearance (removed border).
+    * Fixed bug #6: Executable files are now handled more intuitively: if the
+      file is binary and executable it is launched on either left of middle
+      click. If the file is text and executable (i.e. a script), left clicking
+      opens it for editing, middle click runs it.
+    * Cleaner display: directory headers now only show current directory name
+      (instead of the whole path). File and directories names also have max length.
+    * Added Config options: Can select dirs to show (and label), select icon,
+      show/hide icon, show hidden, select terminal More/better error checking.
+      rc file has to be edited manually for now.
+    * Code cleanup/refactoring.
+
+Version 0.3.0
+*************
+    * Initial release to the public!

@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!-- vi: set et ts=2 -->
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "0.6.0">
+  <!ENTITY manrevision "0.1">
+  <!ENTITY date "October 2008">
+  <!ENTITY app "file-browser-applet">
+  <!ENTITY appname "File Browser">
+  <!ENTITY appnameinpanel "&appname;">
+  <!ENTITY appnameapp "<application>&appname;</application>">
+  <!ENTITY gdp "GNOME Documentation Project">
+]>
+
+
+<!--
+    (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+-->
+
+
+
+<!-- ============= Document Header ============================= -->
+
+<article id="index" lang="en">
+<!-- please do not change the id; for translations, -->
+<!-- change lang to appropriate code -->
+
+  <articleinfo>
+
+    <title>&appname; Manual V&manrevision;</title>
+
+
+    <copyright>
+      <year>2008</year>
+      <holder>Silvio Ricardo Cordeiro</holder>
+    </copyright>
+
+    <!-- translators: uncomment this:
+
+    <copyright>
+      <year>2008</year>
+      <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+    </copyright>
+
+    -->
+
+
+    <publisher role="maintainer">
+      <publishername>&gdp;</publishername>
+    </publisher>
+
+    &legal;
+
+    <authorgroup>
+       <author>
+          <firstname>Silvio Ricardo</firstname>
+          <surname>Cordeiro</surname>
+          <address><email>silvioricardoc@gmail.com</email></address>
+       </author>
+
+       <!-- This is appropriate place for other contributors: translators,
+            maintainers,  etc. Commented out by default.
+         <othercredit role="translator">
+           <firstname>Latin</firstname>
+           <surname>Translator 1</surname>
+           <affiliation>
+             <orgname>Latin Translation Team</orgname>
+             <address> <email>translator@gnome.org</email> </address>
+           </affiliation>
+           <contrib>Latin translation</contrib>
+         </othercredit>
+       -->
+    </authorgroup>
+
+
+    <revhistory>
+      <!-- SHOULD WE MANTAIN THIS DOCUMENT'S CRIATION UNDER
+           THE REVISION HISTORY? IT ISN'T STRICTLY A REVISION... -->
+      <revision>
+        <revnumber>&appname; Manual V&manrevision;</revnumber>
+        <date>October 2008</date>
+        <revdescription>
+          <para role="author">Silvio Ricardo Cordeiro</para>
+          <para role="publisher">&gdp;</para>
+        </revdescription>
+      </revision>
+      <!-- When adding a new revision, change &manrevision
+           in last revision (use the real rev number) -->
+    </revhistory>
+
+
+    <releaseinfo>This manual describes version &appversion; of &appname;.
+    </releaseinfo>
+    <legalnotice>
+      <title>Feedback</title>
+      <para>To report a bug or make a suggestion regarding the &appname; applet or this manual, follow the directions in the <ulink url="ghelp:gnome-feedback" type="help"> GNOME Feedback Page</ulink>.</para>
+      <!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm zone="index">
+  <primary>&appname;</primary>
+  </indexterm>
+
+
+
+  <!-- ============= Introduction ================================ -->
+
+  <sect1 id="&app;-intro">
+    <title>Introduction</title>
+
+    <figure id="&app;-fig">
+      <title>&appname; Applet</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject><imagedata
+            fileref="figures/&app;.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>The &appname; applet.</phrase>
+          </textobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+
+    <para> The &appnameapp; applet lets you browse and open files in your computer directly from the panel.</para>
+    <para> The &appnameapp; applet is not intended as replacement to proper file managers like nautilus. Sometimes you just want to open a file and don't want to have to open a file manager, browse to and open the file, then close the file manager. This applet just saves you couple of clicks.</para>
+
+	<sect2 id="&app;-intro-add">
+      <title>Adding &appname; to a Panel</title>
+	  <para> To add &appname; to a panel, right-click on the panel, then choose <guimenu>Add to Panel...</guimenu>, select <guimenu>&appnameinpanel;</guimenu> from the list and press <guimenu>OK</guimenu>.</para>
+
+    <figure id="running-fig">
+      <title>Adding &appname; to a Panel</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject><imagedata
+            fileref="figures/running.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>The &appname; applet.</phrase>
+          </textobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    </sect2>
+
+  </sect1>
+
+
+
+  <!-- ============= Usage ================================ -->
+  <sect1 id="&app;-usage">
+    <title>Usage</title>
+    <!-- Add stuff here (use the "Introduction"
+         section above as a model for "Usage") -->
+  </sect1>
+
+
+
+</article>

@@ -1,0 +1,55 @@
+File Browser Applet 0.6.7
+******************************
+File Browser Applet is an applet for the GNOME Panel. It lets you browse and
+open files in your home folder from the gnome panel, without having to open
+a file manager. It is _not_ intended as replacement to proper file managers
+like nautilus. Sometimes you (like me) just want to open a file and don't want
+to have to open a file manager, browse to and open the file, then close the
+file manager. This Applet just saves you couple of clicks.
+
+Features
+********
+    * Browse and open files in your home folder from the panel.
+    * Respects Gnome mime type options and includes mime icon in menu.
+    * Middle clicking (or F4) in a folder header will open a terminal in
+      that folder.
+    * Middle-clicking (or F4) on file will open with the configured editor,
+      right-clicking will execute the default action including running binary
+      files.
+    * Configuration options: Select folder to show (and label), select
+      icon, show/hide icon, show hidden, select terminal and editor.
+    * Keyboard activation (a.k.a. hotkey) of root menu (via libgtkhotkey).
+      Currently set as <Super>h.
+    * Context menu with some useful actions such as open-with, new folder here,
+      delete file/folder, create/extract archive, open/edit/run as root, etc.
+    * Fast keyboard navigation with mnemonics.
+    * Drag 'n Drop from applet to Nautilus or Desktop to MOVE files.
+    * Opened files added to "Recent Documents" list.
+    * Option to display a file's thumbnail if it exist.
+    * Option to show folder only (i.e. hide files).
+    * Useful tooltips indicating file size or folder contents count.
+    * Improved handling of executable text files via confirmation dialog.
+
+Installation
+************
+See the file INSTALL.
+
+To Do
+*****
+    * Translation.
+    * Drag-n-drop configuration.
+    * Documentation
+    * A better icon.
+    * Generating distribution packages.
+
+Bugs
+****
+    * See http://code.google.com/p/gnome-menu-file-browser-applet/issues/list
+    * Plus some memory leaks.
+
+Hacking
+*******
+Contributions are welcome, but it might take a while for them to make it into a
+release as I (unfortunately) don't always have a lot of time to devote to this
+project (and other lame excuses). Send ideas/code/patches via the bug tracker
+(http://code.google.com/p/gnome-menu-file-browser-applet/issues/list).
