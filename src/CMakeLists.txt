@@ -34,7 +34,8 @@ SET (SRCS main.cc
      PanelMenuBar.cc
      FileItem.cc
      DirectoryListing.cc
-     Preferences.cc)
+     Preferences.cc
+     MenuHeader.cc)
 
 ADD_EXECUTABLE (${EXEC} ${SRCS})
 TARGET_LINK_LIBRARIES (${EXEC} ${LIBS})

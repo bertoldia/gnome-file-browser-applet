@@ -6,7 +6,7 @@
 #include "DirectoryListing.h"
 
 class FileItem : public Gtk::ImageMenuItem {
-  private:
+  protected:
     Glib::RefPtr<Gio::FileInfo> file_info;
     std::string path;
     DirectoryListing* listing;
@@ -16,7 +16,7 @@ class FileItem : public Gtk::ImageMenuItem {
     void add_tooltip();
     void add_markup();
     void add_image();
-    void add_directory_submenu();
+    virtual void add_directory_submenu();
     void add_signal();
     void on_activate();
 

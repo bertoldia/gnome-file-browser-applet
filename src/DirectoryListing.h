@@ -2,18 +2,21 @@
 #define DIRECTORY_LISTING
 
 #include <gtkmm.h>
+#include <giomm.h>
 
 class DirectoryListing : public Gtk::Menu {
   private:
     std::string path;
-    Gtk::MenuItem* item;
+    Gtk::MenuItem* _item;
 
     void clear();
     void populate();
-    void create();
+    void query_file_system_sync();
+    void add_children_entries(Glib::RefPtr<Gio::FileEnumerator> children);
     void add_header();
     void add_directories();
     void add_files();
+    void add_separator();
 
   public:
     DirectoryListing(std::string path);

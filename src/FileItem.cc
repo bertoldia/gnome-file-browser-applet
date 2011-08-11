@@ -1,5 +1,4 @@
 #include <iostream>
-#include <giomm.h>
 #include "FileItem.h"
 #include "Preferences.h"
 

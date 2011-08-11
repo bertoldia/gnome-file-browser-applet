@@ -1,12 +1,12 @@
 #include <iostream>
 #include <giomm.h>
 #include "DirectoryListing.h"
-#include "FileItem.h"
+#include "MenuHeader.h"
 #include "Preferences.h"
 
 DirectoryListing::DirectoryListing(std::string path) :
   path(path),
-  item(NULL) {
+  _item(NULL) {
 }
 
 DirectoryListing::~DirectoryListing(){}
@@ -14,6 +14,7 @@ DirectoryListing::~DirectoryListing(){}
 void
 DirectoryListing::refresh() {
   clear();
+  add_header();
   populate();
   show_all();
 }
@@ -21,41 +22,60 @@ DirectoryListing::refresh() {
 void
 DirectoryListing::clear () {
   // Does this delete the menu items too, or just remove them from the menu?
+  // It deletes them.
   items().erase(items().begin(), items().end());
 }
 
 void
 DirectoryListing::populate() {
-  Preferences* prefs = Preferences::getInstance();
+  query_file_system_sync();
+}
 
+void
+DirectoryListing::query_file_system_sync() {
   Glib::RefPtr<Gio::File> directory = Gio::File::create_for_path(path);
   try {
     Glib::RefPtr<Gio::FileEnumerator> children = directory->enumerate_children();
-    Glib::RefPtr<Gio::FileInfo> child_info;
-    while (child_info = children->next_file()) {
-      if ((!prefs->show_hidden() && child_info->is_hidden()) ||
-          (prefs->show_dirs_only() && (Gio::FILE_TYPE_DIRECTORY != child_info->get_file_type()))) continue;
-
-      FileItem* file_item = manage(new FileItem(child_info, path + "/" + child_info->get_name()));
-      append((Gtk::MenuItem&)*file_item);
-    }
+    add_children_entries(children);
     children->close();
   } catch (Gio::Error e) {
     std::cout << e.what() << std::endl;
-    item = manage(new Gtk::MenuItem(e.what()));
+    Gtk::MenuItem* item = manage(new Gtk::MenuItem(e.what()));
+    item->set_sensitive(false);
     append(*item);
   }
 }
 
 void
-DirectoryListing::create(){}
+DirectoryListing::add_children_entries(Glib::RefPtr<Gio::FileEnumerator> children) {
+  Preferences* prefs = Preferences::getInstance();
+
+  Glib::RefPtr<Gio::FileInfo> child_info;
+  while (child_info = children->next_file()) {
+    if ((!prefs->show_hidden() && child_info->is_hidden()) ||
+        (prefs->show_dirs_only() && (Gio::FILE_TYPE_DIRECTORY != child_info->get_file_type()))) continue;
+
+    FileItem* file_item = manage(new FileItem(child_info, path + "/" + child_info->get_name()));
+    append((Gtk::MenuItem&)*file_item);
+  }
+}
 
 void
-DirectoryListing::add_header(){}
+DirectoryListing::add_header() {
+  //MenuHeader* header = manage(new MenuHeader(file_info, path + "/" + child_info->get_name()));
+  //append((Gtk::MenuItem&)*header);
+  add_separator();
+}
 
 void
 DirectoryListing::add_directories(){}
 
 void
 DirectoryListing::add_files(){}
+
+void
+DirectoryListing::add_separator() {
+  Gtk::SeparatorMenuItem* separator = manage(new Gtk::SeparatorMenuItem());
+  append(*separator);
+}
 
