@@ -73,6 +73,6 @@ FileItem::add_signal() {
 void
 FileItem::on_activate() {
   if (listing != NULL) {
-    listing->refresh();
+    listing->refresh(file_info);
   }
 }

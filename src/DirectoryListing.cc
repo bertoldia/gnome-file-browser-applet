@@ -12,9 +12,9 @@ DirectoryListing::DirectoryListing(std::string path) :
 DirectoryListing::~DirectoryListing(){}
 
 void
-DirectoryListing::refresh() {
+DirectoryListing::refresh(Glib::RefPtr<Gio::FileInfo>& file_info) {
   clear();
-  add_header();
+  add_header(file_info);
   populate();
   show_all();
 }
@@ -61,9 +61,9 @@ DirectoryListing::add_children_entries(Glib::RefPtr<Gio::FileEnumerator> childre
 }
 
 void
-DirectoryListing::add_header() {
-  //MenuHeader* header = manage(new MenuHeader(file_info, path + "/" + child_info->get_name()));
-  //append((Gtk::MenuItem&)*header);
+DirectoryListing::add_header(Glib::RefPtr<Gio::FileInfo>& file_info) {
+  MenuHeader* header = manage(new MenuHeader(file_info, path));
+  append((Gtk::MenuItem&)*header);
   add_separator();
 }
 

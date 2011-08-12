@@ -4,7 +4,7 @@
 #include "FileItem.h"
 
 class MenuHeader : public FileItem {
-  private:
+  protected:
     virtual void add_directory_submenu();
 
   public:
