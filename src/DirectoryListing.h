@@ -12,15 +12,15 @@ class DirectoryListing : public Gtk::Menu {
     void clear();
     void populate();
     void query_file_system_sync();
-    void add_children_entries(Glib::RefPtr<Gio::FileEnumerator> children);
-    void add_header(Glib::RefPtr<Gio::FileInfo>& file_info);
+    void add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children);
+    void add_header(const Glib::RefPtr<Gio::FileInfo>& file_info);
     void add_directories();
     void add_files();
     void add_separator();
 
   public:
-    DirectoryListing(std::string path);
+    explicit DirectoryListing(const std::string& path);
     ~DirectoryListing();
-    void refresh(Glib::RefPtr<Gio::FileInfo>& file_info);
+    void refresh(const Glib::RefPtr<Gio::FileInfo>& file_info);
 };
 #endif

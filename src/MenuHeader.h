@@ -4,11 +4,11 @@
 #include "FileItem.h"
 
 class MenuHeader : public FileItem {
-  protected:
-    virtual void add_directory_submenu();
+  private:
+    void remove_directory_submenu();
 
   public:
-    MenuHeader(Glib::RefPtr<Gio::FileInfo> file_info, std::string path);
+    MenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
     ~MenuHeader();
 
 };

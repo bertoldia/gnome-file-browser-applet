@@ -2,7 +2,7 @@
 #include "FileItem.h"
 #include "Preferences.h"
 
-FileItem::FileItem(Glib::RefPtr<Gio::FileInfo> file_info, std::string path) :
+FileItem::FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
   Gtk::ImageMenuItem(file_info->get_display_name()),
   file_info(file_info),
   path(path),
@@ -20,7 +20,6 @@ FileItem::create() {
   add_markup();
   add_tooltip();
   add_directory_submenu();
-  add_signal();
 }
 
 void
@@ -60,14 +59,9 @@ FileItem::add_directory_submenu() {
 
   listing = manage(new DirectoryListing(path));
   set_submenu(*listing);
-}
 
-void
-FileItem::add_signal() {
-  if (am_directory) {
-    signal_activate().connect(sigc::mem_fun(this, &FileItem::on_activate));
-  } else {
-  }
+  //signal_activate().connect(sigc::mem_fun(this, &FileItem::on_activate));
+  _signal_activate = signal_activate().connect(sigc::mem_fun(this, &FileItem::on_activate));
 }
 
 void

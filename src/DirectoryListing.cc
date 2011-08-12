@@ -4,7 +4,7 @@
 #include "MenuHeader.h"
 #include "Preferences.h"
 
-DirectoryListing::DirectoryListing(std::string path) :
+DirectoryListing::DirectoryListing(const std::string& path) :
   path(path),
   _item(NULL) {
 }
@@ -12,7 +12,7 @@ DirectoryListing::DirectoryListing(std::string path) :
 DirectoryListing::~DirectoryListing(){}
 
 void
-DirectoryListing::refresh(Glib::RefPtr<Gio::FileInfo>& file_info) {
+DirectoryListing::refresh(const Glib::RefPtr<Gio::FileInfo>& file_info) {
   clear();
   add_header(file_info);
   populate();
@@ -47,7 +47,7 @@ DirectoryListing::query_file_system_sync() {
 }
 
 void
-DirectoryListing::add_children_entries(Glib::RefPtr<Gio::FileEnumerator> children) {
+DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children) {
   Preferences* prefs = Preferences::getInstance();
 
   Glib::RefPtr<Gio::FileInfo> child_info;
@@ -61,7 +61,7 @@ DirectoryListing::add_children_entries(Glib::RefPtr<Gio::FileEnumerator> childre
 }
 
 void
-DirectoryListing::add_header(Glib::RefPtr<Gio::FileInfo>& file_info) {
+DirectoryListing::add_header(const Glib::RefPtr<Gio::FileInfo>& file_info) {
   MenuHeader* header = manage(new MenuHeader(file_info, path));
   append((Gtk::MenuItem&)*header);
   add_separator();
