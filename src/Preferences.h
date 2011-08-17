@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+namespace FileBrowserApplet {
+
 class Preferences {
   private:
     static Preferences* instance;
@@ -17,5 +19,7 @@ class Preferences {
     bool show_thumbnails();
     bool confirm_exec_action();
 };
+
+}
 
 #endif

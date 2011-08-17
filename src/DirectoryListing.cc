@@ -1,8 +1,12 @@
 #include <iostream>
+#include <vector>
 #include <giomm.h>
 #include "DirectoryListing.h"
 #include "MenuHeader.h"
 #include "Preferences.h"
+#include "Utils.h"
+
+namespace FileBrowserApplet {
 
 DirectoryListing::DirectoryListing(const std::string& path) :
   path(path),
@@ -49,14 +53,38 @@ DirectoryListing::query_file_system_sync() {
 void
 DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children) {
   Preferences* prefs = Preferences::getInstance();
+  std::vector<FileItem*> files;
+  std::vector<FileItem*> directories;
 
   Glib::RefPtr<Gio::FileInfo> child_info;
   while (child_info = children->next_file()) {
     if ((!prefs->show_hidden() && child_info->is_hidden()) ||
-        (prefs->show_dirs_only() && (Gio::FILE_TYPE_DIRECTORY != child_info->get_file_type()))) continue;
+        (prefs->show_dirs_only() && !file_is_directory(child_info))) continue;
 
     FileItem* file_item = manage(new FileItem(child_info, path + "/" + child_info->get_name()));
-    append((Gtk::MenuItem&)*file_item);
+
+    if (file_item->is_directory()) {
+      directories.push_back(file_item);
+    } else {
+      files.push_back(file_item);
+    }
+  }
+
+  if (directories.empty() && files.empty()) {
+    add_empty_item();
+    return;
+  }
+
+  for (std::vector<FileItem*>::iterator it = directories.begin(); it != directories.end(); it++) {
+      append((Gtk::MenuItem&)*(*it));
+  }
+
+  if (!(directories.empty() || files.empty())) {
+    add_separator();
+  }
+
+  for (std::vector<FileItem*>::iterator it = files.begin(); it != files.end(); it++) {
+      append((Gtk::MenuItem&)*(*it));
   }
 }
 
@@ -79,3 +107,11 @@ DirectoryListing::add_separator() {
   append(*separator);
 }
 
+void
+DirectoryListing::add_empty_item() {
+  Gtk::MenuItem* item = manage(new Gtk::MenuItem("(Empty)"));
+  item->set_sensitive(false);
+  append(*item);
+}
+
+} //namespace

@@ -1,13 +1,16 @@
 #include <iostream>
 #include "FileItem.h"
 #include "Preferences.h"
+#include "Utils.h"
+
+namespace FileBrowserApplet {
 
 FileItem::FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
   Gtk::ImageMenuItem(file_info->get_display_name()),
   file_info(file_info),
   path(path),
   listing(NULL),
-  am_directory(Gio::FILE_TYPE_DIRECTORY == file_info->get_file_type()) {
+  am_directory(file_is_directory(file_info)) {
 
   create();
 }
@@ -69,4 +72,11 @@ FileItem::on_activate() {
   if (listing != NULL) {
     listing->refresh(file_info);
   }
+}
+
+bool
+FileItem::is_directory() {
+  return am_directory;
+}
+
 }

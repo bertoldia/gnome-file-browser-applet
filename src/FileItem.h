@@ -5,6 +5,8 @@
 #include <gtkmm.h>
 #include "DirectoryListing.h"
 
+namespace FileBrowserApplet {
+
 class FileItem : public Gtk::ImageMenuItem {
   protected:
     Glib::RefPtr<Gio::FileInfo> file_info;
@@ -23,6 +25,10 @@ class FileItem : public Gtk::ImageMenuItem {
   public:
     FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
     ~FileItem();
+    bool is_directory();
 
 };
+
+}
+
 #endif

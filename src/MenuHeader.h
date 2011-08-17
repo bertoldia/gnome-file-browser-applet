@@ -3,6 +3,8 @@
 
 #include "FileItem.h"
 
+namespace FileBrowserApplet {
+
 class MenuHeader : public FileItem {
   private:
     void remove_directory_submenu();
@@ -12,4 +14,7 @@ class MenuHeader : public FileItem {
     ~MenuHeader();
 
 };
+
+}
+
 #endif

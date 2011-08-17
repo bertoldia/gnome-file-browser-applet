@@ -3,6 +3,11 @@
 
 #include <gtkmm.h>
 
+namespace FileBrowserApplet {
+
 class PanelMenuBar : public Gtk::MenuBar {
 };
+
+}
+
 #endif

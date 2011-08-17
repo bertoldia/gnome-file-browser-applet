@@ -12,11 +12,11 @@ int main(int argc, char *argv[]) {
   Gtk::Window window;
 
   Gtk::VBox vbox;
-  PanelMenuBar menu_bar;
+  FileBrowserApplet::PanelMenuBar menu_bar;
 
   Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(Glib::get_home_dir());
 
-  FileItem item(file->query_info(), file->get_path());
+  FileBrowserApplet::FileItem item(file->query_info(), file->get_path());
   menu_bar.append(item);
 
   window.add(vbox);

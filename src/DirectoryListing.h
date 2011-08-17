@@ -4,6 +4,8 @@
 #include <gtkmm.h>
 #include <giomm.h>
 
+namespace FileBrowserApplet {
+
 class DirectoryListing : public Gtk::Menu {
   private:
     std::string path;
@@ -17,10 +19,13 @@ class DirectoryListing : public Gtk::Menu {
     void add_directories();
     void add_files();
     void add_separator();
+    void add_empty_item();
 
   public:
     explicit DirectoryListing(const std::string& path);
     ~DirectoryListing();
     void refresh(const Glib::RefPtr<Gio::FileInfo>& file_info);
 };
+
+}
 #endif

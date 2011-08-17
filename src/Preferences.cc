@@ -1,5 +1,7 @@
 #include "Preferences.h"
 
+namespace FileBrowserApplet {
+
 // initialize static member
 Preferences* Preferences::instance(NULL);
 
@@ -34,4 +36,6 @@ Preferences::show_thumbnails() {
 bool
 Preferences::confirm_exec_action() {
   return true;
+}
+
 }
