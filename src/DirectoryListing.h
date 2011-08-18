@@ -1,8 +1,8 @@
 #ifndef DIRECTORY_LISTING
 #define DIRECTORY_LISTING
 
-#include <gtkmm.h>
 #include <giomm.h>
+#include <gtkmm.h>
 
 namespace FileBrowserApplet {
 

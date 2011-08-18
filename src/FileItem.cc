@@ -9,6 +9,7 @@ FileItem::FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::stri
   Gtk::ImageMenuItem(file_info->get_display_name()),
   file_info(file_info),
   path(path),
+  collate_key(create_collate_key(file_info->get_display_name())),
   listing(NULL),
   am_directory(file_is_directory(file_info)) {
 
@@ -77,6 +78,23 @@ FileItem::on_activate() {
 bool
 FileItem::is_directory() {
   return am_directory;
+}
+
+/* A little C nastiness... I really want to use
+ * g_utf8_collate_key_for_filename() to sort the entries, but it's not exposed
+ * in Glibmm, so I have to all-back to plain old glib.
+ */
+std::string
+FileItem::create_collate_key(const std::string& display_name) {
+  gchar* tmp = g_utf8_collate_key_for_filename(display_name.c_str(), display_name.size());
+  std::string collate_key(tmp);
+  g_free(tmp);
+  return collate_key;
+}
+
+const std::string&
+FileItem::get_collate_key() {
+  return collate_key;
 }
 
 }

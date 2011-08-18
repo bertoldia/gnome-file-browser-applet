@@ -1,12 +1,17 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
-#include <giomm.h>
 #include "DirectoryListing.h"
 #include "MenuHeader.h"
 #include "Preferences.h"
 #include "Utils.h"
 
 namespace FileBrowserApplet {
+
+bool
+file_collate_comapator(FileItem* A, FileItem* B) {
+  return A->get_collate_key() < B->get_collate_key();
+}
 
 DirectoryListing::DirectoryListing(const std::string& path) :
   path(path),
@@ -74,6 +79,9 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
     add_empty_item();
     return;
   }
+
+  sort (directories.begin(), directories.end(), file_collate_comapator);
+  sort (files.begin(), files.end(), file_collate_comapator);
 
   for (std::vector<FileItem*>::iterator it = directories.begin(); it != directories.end(); it++) {
       append((Gtk::MenuItem&)*(*it));
