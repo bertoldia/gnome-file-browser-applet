@@ -10,12 +10,12 @@ Preferences::Preferences() {
   // load ui file
 }
 
-Preferences*
+Preferences&
 Preferences::getInstance() {
   if (Preferences::instance == NULL) {
     Preferences::instance = new Preferences();
   }
-  return Preferences::instance;
+  return *Preferences::instance;
 }
 
 bool
@@ -36,6 +36,11 @@ Preferences::show_thumbnails() {
 bool
 Preferences::confirm_exec_action() {
   return true;
+}
+
+bool
+Preferences::show_tooltips() {
+  return false;
 }
 
 }

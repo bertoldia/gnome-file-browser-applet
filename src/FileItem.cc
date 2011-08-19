@@ -28,6 +28,7 @@ FileItem::create() {
 
 void
 FileItem::add_tooltip(){
+  if (!Preferences::getInstance().show_tooltips()) return;
   std::stringstream size;
   size << file_info->get_size();
   set_tooltip_text(size.str());
@@ -38,10 +39,9 @@ FileItem::add_markup(){}
 
 void
 FileItem::add_image(){
-  Preferences* prefs = Preferences::getInstance();
   Gtk::Image* image = NULL;
 
-  if (prefs->show_thumbnails()) {
+  if (Preferences::getInstance().show_thumbnails()) {
     std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
     if (!thumbnail.empty()) {
       image = manage(new Gtk::Image(thumbnail));

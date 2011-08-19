@@ -12,12 +12,13 @@ class Preferences {
     explicit Preferences();
 
   public:
-    static Preferences* getInstance();
+    static Preferences& getInstance();
 
     bool show_hidden();
     bool show_dirs_only();
     bool show_thumbnails();
     bool confirm_exec_action();
+    bool show_tooltips();
 };
 
 }

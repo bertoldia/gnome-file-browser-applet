@@ -57,14 +57,14 @@ DirectoryListing::query_file_system_sync() {
 
 void
 DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children) {
-  Preferences* prefs = Preferences::getInstance();
+  Preferences& prefs = Preferences::getInstance();
   std::vector<FileItem*> files;
   std::vector<FileItem*> directories;
 
   Glib::RefPtr<Gio::FileInfo> child_info;
   while (child_info = children->next_file()) {
-    if ((!prefs->show_hidden() && child_info->is_hidden()) ||
-        (prefs->show_dirs_only() && !file_is_directory(child_info))) continue;
+    if ((!prefs.show_hidden() && child_info->is_hidden()) ||
+        (prefs.show_dirs_only() && !file_is_directory(child_info))) continue;
 
     FileItem* file_item = manage(new FileItem(child_info, path + "/" + child_info->get_name()));
 
