@@ -5,6 +5,9 @@
 
 namespace FileBrowserApplet {
 
+const std::string FILE_SIZE_UNITS[] = {"bytes","KB","MB","GB","TB","HUGE"};
+const int FILE_SIZE_ORDER_OF_MAGNITUDE = 1024;
+
 FileItem::FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
   Gtk::ImageMenuItem(file_info->get_display_name()),
   file_info(file_info),
@@ -29,9 +32,22 @@ FileItem::create() {
 void
 FileItem::add_tooltip(){
   if (!Preferences::getInstance().show_tooltips()) return;
-  std::stringstream size;
-  size << file_info->get_size();
-  set_tooltip_text(size.str());
+  std::stringstream tooltip;
+  tooltip << file_info->get_display_name();
+
+  int order_of_magnitude = 0;
+  long file_size = file_info->get_size();
+  while (file_size > FILE_SIZE_ORDER_OF_MAGNITUDE){
+      file_size = file_size / FILE_SIZE_ORDER_OF_MAGNITUDE;
+      order_of_magnitude++;
+  }
+
+  tooltip << " - ";
+  tooltip << file_size;
+  tooltip << " ";
+  tooltip << (order_of_magnitude <= 5 ?  FILE_SIZE_UNITS[order_of_magnitude] : FILE_SIZE_UNITS[5]);
+
+  set_tooltip_text(tooltip.str());
 }
 
 void

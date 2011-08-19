@@ -40,7 +40,7 @@ Preferences::confirm_exec_action() {
 
 bool
 Preferences::show_tooltips() {
-  return false;
+  return true;
 }
 
 }
