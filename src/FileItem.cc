@@ -17,4 +17,4 @@ void
 FileItem::create() {
 }
 
-}
+} //namespace

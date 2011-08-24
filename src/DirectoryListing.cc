@@ -65,8 +65,11 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
 
   Glib::RefPtr<Gio::FileInfo> child_info;
   while (child_info = children->next_file()) {
+
     if ((!prefs.show_hidden() && child_info->is_hidden()) ||
-        (prefs.show_dirs_only() && !file_is_directory(child_info))) continue;
+        (prefs.show_dirs_only() && !file_is_directory(child_info))) {
+      continue;
+    }
 
     if (file_is_directory(child_info)) {
       BaseItem* item = manage(new DirectoryItem(child_info, path + "/" + child_info->get_name()));
@@ -104,12 +107,6 @@ DirectoryListing::add_header(const Glib::RefPtr<Gio::FileInfo>& file_info) {
   append((Gtk::MenuItem&)*header);
   add_separator();
 }
-
-void
-DirectoryListing::add_directories(){}
-
-void
-DirectoryListing::add_files(){}
 
 void
 DirectoryListing::add_separator() {

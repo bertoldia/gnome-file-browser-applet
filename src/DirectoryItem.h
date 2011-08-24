@@ -11,7 +11,6 @@ namespace FileBrowserApplet {
 class DirectoryItem : public BaseItem {
   protected:
     DirectoryListing* listing;
-    sigc::connection _signal_activate;
 
     void create();
     void add_directory_submenu();
@@ -22,6 +21,6 @@ class DirectoryItem : public BaseItem {
     ~DirectoryItem();
 };
 
-}
+} //namespace
 
 #endif

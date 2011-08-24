@@ -25,7 +25,6 @@ class BaseItem : public Gtk::ImageMenuItem {
     const std::string& get_collate_key();
 };
 
-}
+} //namespace
 
 #endif
-

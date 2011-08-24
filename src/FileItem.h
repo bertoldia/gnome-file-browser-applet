@@ -16,6 +16,6 @@ class FileItem : public BaseItem {
     ~FileItem();
 };
 
-}
+} //namespace
 
 #endif

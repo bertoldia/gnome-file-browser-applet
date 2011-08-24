@@ -73,5 +73,4 @@ BaseItem::get_collate_key() {
   return collate_key;
 }
 
-}
-
+} //namespace

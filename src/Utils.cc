@@ -40,4 +40,4 @@ BaseItem* make_item(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::str
   }
 }
 
-}
+} //namespace

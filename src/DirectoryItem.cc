@@ -23,7 +23,7 @@ void
 DirectoryItem::add_directory_submenu() {
   listing = manage(new DirectoryListing(path));
   set_submenu(*listing);
-  _signal_activate = signal_activate().connect(sigc::mem_fun(this, &DirectoryItem::on_activate));
+  signal_activate().connect(sigc::mem_fun(this, &DirectoryItem::on_activate));
 }
 
 void
@@ -31,4 +31,4 @@ DirectoryItem::on_activate() {
   listing->refresh(file_info);
 }
 
-}
+} //namespace

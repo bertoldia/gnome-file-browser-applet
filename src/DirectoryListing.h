@@ -16,8 +16,6 @@ class DirectoryListing : public Gtk::Menu {
     void query_file_system_sync();
     void add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children);
     void add_header(const Glib::RefPtr<Gio::FileInfo>& file_info);
-    void add_directories();
-    void add_files();
     void add_separator();
     void add_empty_item();
 
@@ -27,5 +25,6 @@ class DirectoryListing : public Gtk::Menu {
     void refresh(const Glib::RefPtr<Gio::FileInfo>& file_info);
 };
 
-}
+} //namespace
+
 #endif
