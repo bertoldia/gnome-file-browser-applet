@@ -32,10 +32,12 @@ MESSAGE("")
 
 SET (SRCS main.cc
      PanelMenuBar.cc
+     ItemBase.cc
      FileItem.cc
+     DirectoryItem.cc
+     MenuHeader.cc
      DirectoryListing.cc
      Preferences.cc
-     MenuHeader.cc
      Utils.cc)
 
 ADD_EXECUTABLE (${EXEC} ${SRCS})
