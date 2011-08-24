@@ -58,7 +58,7 @@ BaseItem::add_image(){
 
 /* A little C nastiness... I really want to use
  * g_utf8_collate_key_for_filename() to sort the entries, but it's not exposed
- * in Glibmm, so I have to all-back to plain old glib.
+ * in Glibmm, so I have to fall-back to plain old glib.
  */
 std::string
 BaseItem::create_collate_key(const std::string& display_name) {
