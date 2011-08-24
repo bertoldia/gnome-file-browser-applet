@@ -11,8 +11,9 @@ class ItemBase : public Gtk::ImageMenuItem {
   protected:
     Glib::RefPtr<Gio::FileInfo> file_info;
     std::string path;
-    std::string collate_key;
 
+  private:
+    std::string collate_key;
     void create();
     void add_tooltip();
     void add_markup();
@@ -23,7 +24,6 @@ class ItemBase : public Gtk::ImageMenuItem {
     ItemBase(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
     ~ItemBase();
     const std::string& get_collate_key();
-
 };
 
 }
