@@ -1,7 +1,7 @@
 #include <gtkmm.h>
 #include <giomm.h>
 #include <iostream>
-#include "FileItem.h"
+#include "DirectoryItem.h"
 #include "PanelMenuBar.h"
 #include "DirectoryListing.h"
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
   Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(Glib::get_home_dir());
 
-  FileBrowserApplet::FileItem item(file->query_info(), file->get_path());
+  FileBrowserApplet::DirectoryItem item(file->query_info(), file->get_path());
   menu_bar.append(item);
 
   window.add(vbox);

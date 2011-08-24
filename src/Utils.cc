@@ -1,5 +1,6 @@
 #include "Utils.h"
-
+#include "FileItem.h"
+#include "DirectoryItem.h"
 
 namespace FileBrowserApplet {
 
@@ -29,6 +30,14 @@ get_file_size_string_from_size(long size) {
   result << (order_of_magnitude <= 5 ?  FILE_SIZE_UNITS[order_of_magnitude] : FILE_SIZE_UNITS[5]);
 
   return result.str();
+}
+
+BaseItem* make_item(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& parent) {
+  if (file_is_directory(file_info)) {
+    return new DirectoryItem(file_info, parent + "/" + file_info->get_name());
+  } else {
+    return new FileItem(file_info, parent + "/" + file_info->get_name());
+  }
 }
 
 }

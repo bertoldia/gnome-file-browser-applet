@@ -3,11 +3,10 @@
 
 #include <giomm.h>
 #include <gtkmm.h>
-#include "DirectoryListing.h"
 
 namespace FileBrowserApplet {
 
-class ItemBase : public Gtk::ImageMenuItem {
+class BaseItem : public Gtk::ImageMenuItem {
   protected:
     Glib::RefPtr<Gio::FileInfo> file_info;
     std::string path;
@@ -21,8 +20,8 @@ class ItemBase : public Gtk::ImageMenuItem {
     std::string create_collate_key(const std::string& display_name);
 
   public:
-    ItemBase(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
-    ~ItemBase();
+    BaseItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    ~BaseItem();
     const std::string& get_collate_key();
 };
 

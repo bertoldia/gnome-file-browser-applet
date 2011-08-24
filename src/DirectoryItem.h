@@ -3,11 +3,12 @@
 
 #include <giomm.h>
 #include <gtkmm.h>
-#include "ItemBase.h"
+#include "BaseItem.h"
+#include "DirectoryListing.h"
 
 namespace FileBrowserApplet {
 
-class DirectoryItem : public ItemBase {
+class DirectoryItem : public BaseItem {
   protected:
     DirectoryListing* listing;
     sigc::connection _signal_activate;
@@ -15,7 +16,6 @@ class DirectoryItem : public ItemBase {
     void create();
     void add_directory_submenu();
     void on_activate();
-    std::string create_collate_key(const std::string& display_name);
 
   public:
     DirectoryItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);

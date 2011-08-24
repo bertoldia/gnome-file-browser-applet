@@ -1,11 +1,11 @@
 #include <iostream>
-#include "ItemBase.h"
+#include "BaseItem.h"
 #include "Preferences.h"
 #include "Utils.h"
 
 namespace FileBrowserApplet {
 
-ItemBase::ItemBase(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
+BaseItem::BaseItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
   Gtk::ImageMenuItem(file_info->get_display_name()),
   file_info(file_info),
   path(path),
@@ -14,17 +14,17 @@ ItemBase::ItemBase(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::stri
   create();
 }
 
-ItemBase::~ItemBase(){}
+BaseItem::~BaseItem(){}
 
 void
-ItemBase::create() {
+BaseItem::create() {
   add_image();
   add_markup();
   add_tooltip();
 }
 
 void
-ItemBase::add_tooltip(){
+BaseItem::add_tooltip(){
   if (!Preferences::getInstance().show_tooltips()) return;
   std::string tooltip(file_info->get_display_name());
 
@@ -35,10 +35,10 @@ ItemBase::add_tooltip(){
 }
 
 void
-ItemBase::add_markup(){}
+BaseItem::add_markup(){}
 
 void
-ItemBase::add_image(){
+BaseItem::add_image(){
   Gtk::Image* image = NULL;
 
   if (Preferences::getInstance().show_thumbnails()) {
@@ -61,7 +61,7 @@ ItemBase::add_image(){
  * in Glibmm, so I have to all-back to plain old glib.
  */
 std::string
-ItemBase::create_collate_key(const std::string& display_name) {
+BaseItem::create_collate_key(const std::string& display_name) {
   gchar* tmp = g_utf8_collate_key_for_filename(display_name.c_str(), display_name.size());
   std::string collate_key(tmp);
   g_free(tmp);
@@ -69,7 +69,7 @@ ItemBase::create_collate_key(const std::string& display_name) {
 }
 
 const std::string&
-ItemBase::get_collate_key() {
+BaseItem::get_collate_key() {
   return collate_key;
 }
 

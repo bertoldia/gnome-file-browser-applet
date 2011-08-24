@@ -6,7 +6,7 @@
 namespace FileBrowserApplet {
 
 DirectoryItem::DirectoryItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
-  ItemBase(file_info, path),
+  BaseItem(file_info, path),
   listing(NULL) {
 
   create();

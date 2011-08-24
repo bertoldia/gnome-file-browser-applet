@@ -32,7 +32,7 @@ MESSAGE("")
 
 SET (SRCS main.cc
      PanelMenuBar.cc
-     ItemBase.cc
+     BaseItem.cc
      FileItem.cc
      DirectoryItem.cc
      MenuHeader.cc
