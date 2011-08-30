@@ -41,17 +41,17 @@ void
 BaseItem::add_image(){
   Gtk::Image* image = NULL;
 
-  if (Preferences::getInstance().show_thumbnails()) {
-    std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
-    if (!thumbnail.empty()) {
-      image = manage(new Gtk::Image(thumbnail));
-    }
+  image = get_image_for_desktop_file();
+
+  if (image == NULL && Preferences::getInstance().show_thumbnails()) {
+    image = get_image_for_thumbnail();
   }
 
   if (image == NULL) {
-    image = manage(new Gtk::Image());
-    image->set(file_info->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
+    image = get_image_for_mime_type();
   }
+
+  manage(image);
   set_image(*image);
   set_always_show_image(true);
 }
@@ -71,6 +71,28 @@ BaseItem::create_collate_key(const std::string& display_name) {
 const std::string&
 BaseItem::get_collate_key() {
   return collate_key;
+}
+
+Gtk::Image*
+BaseItem::get_image_for_desktop_file() {
+  Glib::RefPtr<Gio::DesktopAppInfo> appinfo = Gio::DesktopAppInfo::create_from_filename(path);
+  return NULL;
+}
+
+Gtk::Image*
+BaseItem::get_image_for_thumbnail() {
+  std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
+  if (!thumbnail.empty()) {
+    return new Gtk::Image(thumbnail);
+  }
+  return NULL;
+}
+
+Gtk::Image*
+BaseItem::get_image_for_mime_type() {
+  Gtk::Image* image = new Gtk::Image();
+    image->set(file_info->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
+    return image;
 }
 
 } //namespace

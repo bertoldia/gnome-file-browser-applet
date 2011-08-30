@@ -17,6 +17,9 @@ class BaseItem : public Gtk::ImageMenuItem {
     void add_tooltip();
     void add_markup();
     void add_image();
+    Gtk::Image* get_image_for_desktop_file();
+    Gtk::Image* get_image_for_thumbnail();
+    Gtk::Image* get_image_for_mime_type();
     std::string create_collate_key(const std::string& display_name);
 
   public:
