@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
 
   Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(Glib::get_home_dir());
 
-  FileBrowserApplet::DirectoryItem item(file->query_info(), file->get_path());
-  menu_bar.append(item);
+  FileBrowserApplet::DirectoryItem* item = FileBrowserApplet::DirectoryItem::make(file->query_info(), file->get_path());
+  menu_bar.append(*item);
 
   window.add(vbox);
   vbox.pack_start(menu_bar);

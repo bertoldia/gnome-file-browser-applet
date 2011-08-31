@@ -6,11 +6,16 @@
 namespace FileBrowserApplet {
 
 class MenuHeader : public FileItem {
-  private:
+  protected:
+    virtual void add_image();
+    virtual void add_tooltip();
+    virtual void add_markup(){};
+
+    explicit MenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
 
   public:
-    MenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
-    ~MenuHeader();
+    static MenuHeader* make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    virtual ~MenuHeader();
 };
 
 } //namespace

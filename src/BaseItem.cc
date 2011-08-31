@@ -11,49 +11,25 @@ BaseItem::BaseItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::stri
   path(path),
   collate_key(create_collate_key(file_info->get_display_name())) {
 
-  create();
+  init();
 }
 
 BaseItem::~BaseItem(){}
 
 void
-BaseItem::create() {
+BaseItem::init() {
+  Preferences prefs = Preferences::getInstance();
   add_image();
+  if (prefs.show_tooltips()) add_tooltip();
   add_markup();
-  add_tooltip();
+  connect_signals();
 }
 
 void
-BaseItem::add_tooltip(){
-  if (!Preferences::getInstance().show_tooltips()) return;
-  std::string tooltip(file_info->get_display_name());
-
-  tooltip += " - ";
-  tooltip += get_file_size_string_from_size(file_info->get_size());
-
-  set_tooltip_text(tooltip);
-}
-
-void
-BaseItem::add_markup(){}
-
-void
-BaseItem::add_image(){
-  Gtk::Image* image = NULL;
-
-  image = get_image_for_desktop_file();
-
-  if (image == NULL && Preferences::getInstance().show_thumbnails()) {
-    image = get_image_for_thumbnail();
-  }
-
-  if (image == NULL) {
-    image = get_image_for_mime_type();
-  }
-
+BaseItem::_set_image(Gtk::Image *image) {
+  set_always_show_image(true);
   manage(image);
   set_image(*image);
-  set_always_show_image(true);
 }
 
 /* A little C nastiness... I really want to use

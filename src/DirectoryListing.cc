@@ -72,10 +72,10 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
     }
 
     if (file_is_directory(child_info)) {
-      BaseItem* item = manage(new DirectoryItem(child_info, path + "/" + child_info->get_name()));
+      BaseItem* item = manage(DirectoryItem::make(child_info, path + "/" + child_info->get_name()));
       directories.push_back(item);
     } else {
-      BaseItem* item = manage(new FileItem(child_info, path + "/" + child_info->get_name()));
+      BaseItem* item = manage(FileItem::make(child_info, path + "/" + child_info->get_name()));
       files.push_back(item);
     }
   }
@@ -98,7 +98,7 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
 
 void
 DirectoryListing::add_header(const Glib::RefPtr<Gio::FileInfo>& file_info) {
-  MenuHeader* header = manage(new MenuHeader(file_info, path));
+  MenuHeader* header = manage(MenuHeader::make(file_info, path));
   append((Gtk::MenuItem&)*header);
   add_separator();
 }

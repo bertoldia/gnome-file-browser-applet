@@ -9,16 +9,22 @@
 namespace FileBrowserApplet {
 
 class DirectoryItem : public BaseItem {
-  protected:
+  private:
     DirectoryListing* listing;
 
-    void create();
     void add_directory_submenu();
     void on_activate();
 
+  protected:
+    explicit DirectoryItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+
+    virtual void add_image();
+    virtual void add_tooltip();
+    virtual void connect_signals();
+
   public:
-    DirectoryItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
-    ~DirectoryItem();
+    static DirectoryItem* make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    virtual ~DirectoryItem();
 };
 
 } //namespace

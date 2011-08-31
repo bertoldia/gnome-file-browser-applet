@@ -11,20 +11,25 @@ class BaseItem : public Gtk::ImageMenuItem {
     Glib::RefPtr<Gio::FileInfo> file_info;
     std::string path;
 
-  private:
-    std::string collate_key;
-    void create();
-    void add_tooltip();
-    void add_markup();
-    void add_image();
+    virtual void add_image(){};
+    virtual void add_tooltip(){};
+    virtual void add_markup(){};
+    virtual void connect_signals(){};
+
     Gtk::Image* get_image_for_desktop_file();
     Gtk::Image* get_image_for_thumbnail();
     Gtk::Image* get_image_for_mime_type();
+    void _set_image(Gtk::Image *image);
+
+    void init();
+
+  private:
+    std::string collate_key;
     std::string create_collate_key(const std::string& display_name);
 
   public:
-    BaseItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
-    ~BaseItem();
+    explicit BaseItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    virtual ~BaseItem();
     const std::string& get_collate_key();
 };
 
