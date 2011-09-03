@@ -52,6 +52,14 @@ BaseItem::get_collate_key() {
 Gtk::Image*
 BaseItem::get_image_for_desktop_file() {
   Glib::RefPtr<Gio::DesktopAppInfo> appinfo = Gio::DesktopAppInfo::create_from_filename(path);
+
+  if (appinfo) {
+    set_label(appinfo->get_name()); //FIXME: this doesn't belong here.
+
+    Gtk::Image* image = new Gtk::Image();
+    image->set(appinfo->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
+    return image;
+  }
   return NULL;
 }
 
@@ -67,8 +75,8 @@ BaseItem::get_image_for_thumbnail() {
 Gtk::Image*
 BaseItem::get_image_for_mime_type() {
   Gtk::Image* image = new Gtk::Image();
-    image->set(file_info->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
-    return image;
+  image->set(file_info->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
+  return image;
 }
 
 } //namespace
