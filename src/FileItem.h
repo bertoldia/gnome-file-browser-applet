@@ -8,6 +8,12 @@
 namespace FileBrowserApplet {
 
 class FileItem : public BaseItem {
+  private:
+    bool is_desktop;
+
+    Gtk::Image* get_image_for_desktop_file();
+    Gtk::Image* get_image_for_thumbnail();
+
   protected:
     virtual void add_image();
     virtual void add_tooltip();

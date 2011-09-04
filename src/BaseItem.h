@@ -16,8 +16,6 @@ class BaseItem : public Gtk::ImageMenuItem {
     virtual void add_markup(){};
     virtual void connect_signals(){};
 
-    Gtk::Image* get_image_for_desktop_file();
-    Gtk::Image* get_image_for_thumbnail();
     Gtk::Image* get_image_for_mime_type();
     void _set_image(Gtk::Image *image);
 
@@ -26,6 +24,8 @@ class BaseItem : public Gtk::ImageMenuItem {
   private:
     std::string collate_key;
     std::string create_collate_key(const std::string& display_name);
+    std::string get_display_name_string(std::string display_name);
+    void set_ellipsize();
 
   public:
     explicit BaseItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
