@@ -8,7 +8,7 @@ const std::string FILE_SIZE_UNITS[] = {"bytes","KB","MB","GB","TB","HUGE"};
 const int FILE_SIZE_ORDER_OF_MAGNITUDE = 1024;
 
 bool
-  file_is_directory(const Glib::RefPtr<Gio::FileInfo>& file_info) {
+file_is_directory(const Glib::RefPtr<Gio::FileInfo>& file_info) {
   return Gio::FILE_TYPE_DIRECTORY == file_info->get_file_type();
 }
 
@@ -32,12 +32,5 @@ get_file_size_string_from_size(long size) {
   return result.str();
 }
 
-BaseItem* make_item(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& parent) {
-  if (file_is_directory(file_info)) {
-    return DirectoryItem::make(file_info, parent + "/" + file_info->get_name());
-  } else {
-    return FileItem::make(file_info, parent + "/" + file_info->get_name());
-  }
-}
 
 } //namespace
