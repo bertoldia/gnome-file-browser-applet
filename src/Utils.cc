@@ -1,6 +1,6 @@
 #include "Utils.h"
-#include "FileItem.h"
-#include "DirectoryItem.h"
+#include <iostream>
+#include <glib/gstdio.h>
 
 namespace FileBrowserApplet {
 
@@ -32,5 +32,19 @@ get_file_size_string_from_size(long size) {
   return result.str();
 }
 
+bool
+open_file(std::string path) {
+  Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(path);
+  if(!file->query_exists()) {
+    // FIXME: do something!
+    return false;
+  }
+
+  std::cout << "opening " << file->get_uri() << std::endl;
+  g_chdir(file->get_path().c_str());
+  Gio::AppInfo::launch_default_for_uri(file->get_uri());
+  g_chdir(Glib::get_home_dir().c_str());
+  return false;
+}
 
 } //namespace

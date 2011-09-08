@@ -9,6 +9,7 @@ namespace FileBrowserApplet {
 
 bool file_is_directory(const Glib::RefPtr<Gio::FileInfo>& file_info);
 std::string get_file_size_string_from_size(long size);
+bool open_file(std::string path);
 
 } //namespace
 
