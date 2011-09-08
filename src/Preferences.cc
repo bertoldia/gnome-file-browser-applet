@@ -43,4 +43,14 @@ Preferences::show_tooltips() {
   return true;
 }
 
+std::string
+Preferences::get_alt_file_action() {
+  return "gvim";
+}
+
+std::string
+Preferences::get_alt_directory_action() {
+  return "gnome-terminal";
+}
+
 }
