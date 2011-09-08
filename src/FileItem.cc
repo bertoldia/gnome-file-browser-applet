@@ -73,7 +73,20 @@ FileItem::add_markup() {
 
 void
 FileItem::connect_signals() {
+  signal_button_release_event().connect(sigc::mem_fun(this, &FileItem::on_button_release));
+  signal_activate().connect(sigc::mem_fun(this, &FileItem::on_activate_file_item));
 }
 
+void
+FileItem::on_activate_file_item() {
+  std::cout<< __FUNCTION__ << std::endl;
+  open_file(path);
+}
+
+bool
+FileItem::on_button_release(GdkEventButton* event) {
+  std::cout<< __FUNCTION__ << std::endl;
+  return open_file(path);
+}
 
 } //namespace

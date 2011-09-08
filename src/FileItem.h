@@ -2,6 +2,7 @@
 #define FILE_ITEM
 
 #include <giomm.h>
+#include <gdkmm.h>
 #include <gtkmm.h>
 #include "BaseItem.h"
 
@@ -19,6 +20,9 @@ class FileItem : public BaseItem {
     virtual void add_tooltip();
     virtual void add_markup();
     virtual void connect_signals();
+
+    void on_activate_file_item();
+    bool on_button_release(GdkEventButton* event);
 
     explicit FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
 
