@@ -79,16 +79,13 @@ FileItem::connect_signals() {
 
 void
 FileItem::on_activate_file_item() {
-  std::cout<< __FUNCTION__ << std::endl;
   open_file(path);
 }
 
 bool
 FileItem::on_button_release(GdkEventButton* event) {
-  std::cout<< __FUNCTION__ << std::endl;
   switch (event->button) {
     case 3:
-      std::cout << "right click\n";
       return true;
     default:
       return false;
