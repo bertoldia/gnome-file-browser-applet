@@ -86,7 +86,13 @@ FileItem::on_activate_file_item() {
 bool
 FileItem::on_button_release(GdkEventButton* event) {
   std::cout<< __FUNCTION__ << std::endl;
-  return open_file(path);
+  switch (event->button) {
+    case 3:
+      std::cout << "right click\n";
+      return true;
+    default:
+      return false;
+  }
 }
 
 } //namespace
