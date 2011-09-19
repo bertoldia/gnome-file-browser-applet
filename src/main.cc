@@ -5,7 +5,7 @@
 #include "PanelMenuBar.h"
 #include "DirectoryListing.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
   Gtk::Main kit(argc, argv);
 

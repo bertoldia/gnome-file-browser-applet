@@ -15,7 +15,7 @@ Preferences::getInstance() {
   if (Preferences::instance == NULL) {
     Preferences::instance = new Preferences();
   }
-  return *Preferences::instance;
+  return *(Preferences::instance);
 }
 
 bool
