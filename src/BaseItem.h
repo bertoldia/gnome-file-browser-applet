@@ -18,6 +18,7 @@ class BaseItem : public Gtk::ImageMenuItem {
 
     Gtk::Image* get_image_for_mime_type();
     void _set_image(Gtk::Image *image);
+    void bold();
 
     void init();
 

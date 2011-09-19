@@ -73,4 +73,14 @@ BaseItem::set_ellipsize() {
   label->set_ellipsize(Pango::ELLIPSIZE_MIDDLE);
 }
 
+void
+BaseItem::bold() {
+  Gtk::Label* label = (Gtk::Label*)get_child();
+  std::string text = label->get_text();
+  //std::string bolded_text = "<span weight=\"bold\">" + text + "</span>";
+  gchar* bolded_text = g_markup_printf_escaped ("<span weight=\"bold\">%s</span>", text.c_str());
+  label->set_markup(bolded_text);
+  g_free(bolded_text);
+}
+
 } //namespace

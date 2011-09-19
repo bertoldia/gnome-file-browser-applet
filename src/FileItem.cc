@@ -69,6 +69,10 @@ FileItem::add_tooltip() {
 
 void
 FileItem::add_markup() {
+  if (is_desktop ||
+      file_info->get_attribute_boolean (G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)) {
+    bold();
+  }
 }
 
 void
