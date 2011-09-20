@@ -37,6 +37,7 @@ SET (SRCS main.cc
      DirectoryItem.cc
      MenuHeader.cc
      DirectoryListing.cc
+     DesktopItem.cc
      Preferences.cc
      Utils.cc)
 

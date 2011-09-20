@@ -13,26 +13,10 @@ FileItem::make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& 
 }
 
 FileItem::FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
-  BaseItem(file_info, path),
-  is_desktop(false) {
+  BaseItem(file_info, path) {
 }
 
 FileItem::~FileItem(){}
-
-Gtk::Image*
-FileItem::get_image_for_desktop_file() {
-  Glib::RefPtr<Gio::DesktopAppInfo> appinfo = Gio::DesktopAppInfo::create_from_filename(path);
-
-  if (appinfo) {
-    is_desktop = true;
-    set_label(appinfo->get_name()); //FIXME: this doesn't belong here.
-
-    Gtk::Image* image = new Gtk::Image();
-    image->set(appinfo->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
-    return image;
-  }
-  return NULL;
-}
 
 Gtk::Image*
 FileItem::get_image_for_thumbnail() {
@@ -47,9 +31,7 @@ void
 FileItem::add_image() {
   Gtk::Image* image = NULL;
 
-  image = get_image_for_desktop_file();
-
-  if (image == NULL && Preferences::getInstance().show_thumbnails()) {
+  if (Preferences::getInstance().show_thumbnails()) {
     image = get_image_for_thumbnail();
   }
 
@@ -69,8 +51,7 @@ FileItem::add_tooltip() {
 
 void
 FileItem::add_markup() {
-  if (is_desktop ||
-      file_info->get_attribute_boolean (G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)) {
+  if (file_info->get_attribute_boolean (G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)) {
     bold();
   }
 }
@@ -90,6 +71,8 @@ bool
 FileItem::on_button_release(GdkEventButton* event) {
   switch (event->button) {
     case 3:
+      return true;
+    case 2:
       return true;
     default:
       return false;
