@@ -10,7 +10,7 @@ namespace FileBrowserApplet {
 
 class DesktopItem : public FileItem {
   private:
-    Glib::RefPtr<Gio::DesktopAppInfo> appinfo;
+    Glib::RefPtr<Gio::AppInfo> appinfo;
 
     Gtk::Image* get_image_for_desktop_file();
 
@@ -20,12 +20,15 @@ class DesktopItem : public FileItem {
     virtual void connect_signals();
 
     void on_activate_desktop_item();
-    bool on_button_release(GdkEventButton* event);
 
-    explicit DesktopItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    explicit DesktopItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                         const std::string& path,
+                         const Glib::RefPtr<Gio::AppInfo>& appinfo);
 
   public:
-    static DesktopItem* make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    static DesktopItem* make(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                             const std::string& path,
+                             const Glib::RefPtr<Gio::AppInfo>& appinfo);
     virtual ~DesktopItem();
 };
 

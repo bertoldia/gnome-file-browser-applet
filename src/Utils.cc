@@ -2,6 +2,10 @@
 #include <iostream>
 #include <glib/gstdio.h>
 
+#include "DirectoryItem.h"
+#include "FileItem.h"
+#include "DesktopItem.h"
+
 namespace FileBrowserApplet {
 
 const std::string FILE_SIZE_UNITS[] = {"bytes","KB","MB","GB","TB","HUGE"};
@@ -33,7 +37,7 @@ get_file_size_string_from_size(long size) {
 }
 
 bool
-open_file(std::string path) {
+open_file(const std::string& path) {
   Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(path);
   if(!file->query_exists()) {
     // FIXME: do something!
@@ -45,6 +49,25 @@ open_file(std::string path) {
   Gio::AppInfo::launch_default_for_uri(file->get_uri());
   g_chdir(Glib::get_home_dir().c_str());
   return false;
+}
+
+BaseItem*
+makeItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) {
+  if (file_is_directory(file_info)) {
+    return DirectoryItem::make(file_info, path);
+  } else {
+    Glib::RefPtr<Gio::AppInfo> appinfo = Gio::DesktopAppInfo::create_from_filename(path);
+    if (appinfo) {
+      return DesktopItem::make(file_info, path, appinfo);
+    } else {
+      return FileItem::make(file_info, path);
+    }
+  }
+}
+
+bool
+launch_desktop_file(const std::string& path) {
+  return true;
 }
 
 } //namespace

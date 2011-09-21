@@ -71,11 +71,10 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
       continue;
     }
 
+    BaseItem* item = manage(makeItem(child_info, path + "/" + child_info->get_name()));
     if (file_is_directory(child_info)) {
-      BaseItem* item = manage(DirectoryItem::make(child_info, path + "/" + child_info->get_name()));
       directories.push_back(item);
     } else {
-      BaseItem* item = manage(FileItem::make(child_info, path + "/" + child_info->get_name()));
       files.push_back(item);
     }
   }
