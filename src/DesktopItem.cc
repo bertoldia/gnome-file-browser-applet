@@ -51,10 +51,7 @@ DesktopItem::connect_signals() {
 
 void
 DesktopItem::on_activate_desktop_item() {
-  GList* wtf = NULL;
-  Glib::ListHandle<std::string> files(wtf, Glib::OWNERSHIP_NONE);
-  Glib::RefPtr<Gio::AppLaunchContext> launch_context(0);
-  appinfo->launch(files, launch_context);
+  launch_desktop_file(appinfo, "");
 }
 
 } //namespace

@@ -73,7 +73,7 @@ FileItem::on_button_release(GdkEventButton* event) {
     case 3:
       return true;
     case 2:
-      return true;
+      return open_file_with(Preferences::getInstance().get_alt_file_action(), path);
     default:
       return false;
   }
