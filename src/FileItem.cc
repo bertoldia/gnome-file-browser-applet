@@ -2,6 +2,7 @@
 #include "FileItem.h"
 #include "Preferences.h"
 #include "Utils.h"
+#include "PanelMenuBar.h"
 
 namespace FileBrowserApplet {
 
@@ -74,7 +75,8 @@ FileItem::on_button_release(const GdkEventButton* event) {
       return true;
     case 2:
       open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
-      return false;
+      PanelMenuBar::getInstance().deactivate();
+      return true;
     default:
       return false;
   }

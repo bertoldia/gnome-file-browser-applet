@@ -5,6 +5,8 @@
 #include "PanelMenuBar.h"
 #include "DirectoryListing.h"
 
+using namespace FileBrowserApplet;
+
 int main(int argc, char* argv[]) {
 
   Gtk::Main kit(argc, argv);
@@ -12,11 +14,11 @@ int main(int argc, char* argv[]) {
   Gtk::Window window;
 
   Gtk::VBox vbox;
-  FileBrowserApplet::PanelMenuBar menu_bar;
+  PanelMenuBar& menu_bar(PanelMenuBar::getInstance());
 
   Glib::RefPtr<Gio::File> file = Gio::File::create_for_path(Glib::get_home_dir());
 
-  FileBrowserApplet::DirectoryItem* item = FileBrowserApplet::DirectoryItem::make(file->query_info(), file->get_path());
+  DirectoryItem* item = DirectoryItem::make(file->query_info(), file->get_path());
   menu_bar.append(*item);
 
   window.add(vbox);

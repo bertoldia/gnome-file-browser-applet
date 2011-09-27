@@ -68,8 +68,15 @@ open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
   vector<string> files;
 
   if (!path.empty()) {
-    RefPtr<File> _file = File::create_for_path(path);
-    files.push_back(path);
+    //RefPtr<File> _file = File::create_for_path(path);
+
+    // ASS
+    GList* gfiles = NULL;
+    //gfiles = g_list_append (gfiles, (gpointer)File::create_for_path(path)->gobj());
+    gfiles = g_list_append (gfiles, (gpointer)g_file_new_for_path (path.c_str()));
+    gboolean ret = g_app_info_launch (appinfo->gobj(), gfiles, NULL, NULL);
+    g_list_foreach (gfiles, (GFunc)g_object_unref, NULL);
+    return ret;
   }
   RefPtr<AppLaunchContext> launch_context(0);
   return appinfo->launch(files, launch_context);
