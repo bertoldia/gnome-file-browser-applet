@@ -4,7 +4,6 @@
 #include "DirectoryListing.h"
 #include "FileItem.h"
 #include "DirectoryItem.h"
-#include "MenuHeader.h"
 #include "Preferences.h"
 #include "Utils.h"
 
@@ -17,7 +16,7 @@ file_collate_comapator(BaseItem* A, BaseItem* B) {
 
 DirectoryListing::DirectoryListing(const std::string& path) :
   path(path),
-  _item(NULL) {
+  header(NULL) {
 }
 
 DirectoryListing::~DirectoryListing(){}
@@ -79,7 +78,7 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
     }
   }
 
-  update_related_object_tooltips(directories.size() + files.size());
+  header->set_tooltip_item_count(directories.size() + files.size());
 
   if (directories.empty() && files.empty()) {
     add_empty_item();
@@ -97,7 +96,7 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
 
 void
 DirectoryListing::add_header(const Glib::RefPtr<Gio::FileInfo>& file_info) {
-  MenuHeader* header = manage(MenuHeader::make(file_info, path));
+  header = manage(MenuHeader::make(file_info, path));
   append((Gtk::MenuItem&)*header);
   add_separator();
 }
@@ -122,10 +121,6 @@ DirectoryListing::add_items(std::vector<BaseItem*> items) {
   for (std::vector<BaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
       append((Gtk::MenuItem&)*(*it));
   }
-}
-
-void
-DirectoryListing::update_related_object_tooltips(int items) {
 }
 
 } //namespace

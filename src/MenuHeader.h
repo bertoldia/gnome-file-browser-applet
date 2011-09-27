@@ -17,6 +17,7 @@ class MenuHeader : public FileItem {
 
   public:
     static MenuHeader* make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
+    void set_tooltip_item_count(int count);
     virtual ~MenuHeader();
 };
 

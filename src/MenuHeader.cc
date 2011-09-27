@@ -37,4 +37,14 @@ MenuHeader::on_middle_click() {
   return open_file_with_app(Preferences::getInstance().get_alt_directory_action(), path);
 }
 
+void
+MenuHeader::set_tooltip_item_count(int count) {
+  std::stringstream tooltip;
+  tooltip << file_info->get_display_name();
+  tooltip << " - ";
+  tooltip << count;
+  tooltip << " items";
+  set_tooltip_text(tooltip.str());
+}
+
 } //namespace

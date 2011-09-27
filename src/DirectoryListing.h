@@ -4,13 +4,14 @@
 #include <giomm.h>
 #include <gtkmm.h>
 #include "BaseItem.h"
+#include "MenuHeader.h"
 
 namespace FileBrowserApplet {
 
 class DirectoryListing : public Gtk::Menu {
   private:
     std::string path;
-    Gtk::MenuItem* _item;
+    MenuHeader* header;
 
     void clear();
     void populate();
@@ -20,7 +21,6 @@ class DirectoryListing : public Gtk::Menu {
     void add_separator();
     void add_empty_item();
     void add_items(std::vector<BaseItem*> items);
-    void update_related_object_tooltips(int items);
 
   public:
     explicit DirectoryListing(const std::string& path);
