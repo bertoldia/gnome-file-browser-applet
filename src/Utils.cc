@@ -58,12 +58,19 @@ open_file(const std::string& path) {
 }
 
 bool
-open_file_with(const string& app, const string& path) {
+open_file_with_app(const string& app, const string& path) {
   RefPtr<AppInfo> appinfo = AppInfo::create_from_commandline(app, "", APP_INFO_CREATE_NONE);
-  GList* _files = NULL;
-  _files = g_list_append (_files, (gpointer)path.c_str());
+  return open_file_with_app(appinfo, path);
+}
 
-  ListHandle<string> files(_files, OWNERSHIP_DEEP);
+bool
+open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
+  vector<string> files;
+
+  if (!path.empty()) {
+    RefPtr<File> _file = File::create_for_path(path);
+    files.push_back(path);
+  }
   RefPtr<AppLaunchContext> launch_context(0);
   return appinfo->launch(files, launch_context);
 }
@@ -80,18 +87,6 @@ makeItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) 
       return FileItem::make(file_info, path);
     }
   }
-}
-
-bool
-launch_desktop_file(const RefPtr<AppInfo>& appinfo, const string& path) {
-  vector<string> files;
-
-  if (!path.empty()) {
-    string uri = File::create_for_path(path)->get_path();
-    files.push_back(path);
-  }
-  RefPtr<AppLaunchContext> launch_context(0);
-  return appinfo->launch(files, launch_context);
 }
 
 } //namespace

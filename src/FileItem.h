@@ -19,7 +19,7 @@ class FileItem : public BaseItem {
     virtual void connect_signals();
 
     void on_activate_file_item();
-    bool on_button_release(GdkEventButton* event);
+    bool on_button_release(const GdkEventButton* event);
 
     explicit FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
 

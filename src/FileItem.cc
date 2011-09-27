@@ -68,12 +68,13 @@ FileItem::on_activate_file_item() {
 }
 
 bool
-FileItem::on_button_release(GdkEventButton* event) {
+FileItem::on_button_release(const GdkEventButton* event) {
   switch (event->button) {
     case 3:
       return true;
     case 2:
-      return open_file_with(Preferences::getInstance().get_alt_file_action(), path);
+      open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
+      return false;
     default:
       return false;
   }

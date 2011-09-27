@@ -51,7 +51,7 @@ DesktopItem::connect_signals() {
 
 void
 DesktopItem::on_activate_desktop_item() {
-  launch_desktop_file(appinfo, "");
+  open_file_with_app(appinfo, "");
 }
 
 } //namespace
