@@ -65,6 +65,11 @@ open_file_with_app(const string& app, const string& path) {
 
 bool
 open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
+  if (!appinfo) {
+    // FIXME: do something!
+    return false;
+  }
+
   vector<string> files;
 
   if (!path.empty()) {
@@ -74,12 +79,18 @@ open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
     //FIXME: change this to use vector<RefPtr<File> > when update to more recent giomm
     GList* gfiles = NULL;
     gfiles = g_list_append (gfiles, (gpointer)g_file_new_for_path (path.c_str()));
+    g_chdir(path.c_str());
     gboolean ret = g_app_info_launch (appinfo->gobj(), gfiles, NULL, NULL);
+    g_chdir(Glib::get_home_dir().c_str());
     g_list_foreach (gfiles, (GFunc)g_object_unref, NULL);
     return ret;
   }
   RefPtr<AppLaunchContext> launch_context(0);
-  return appinfo->launch(files, launch_context);
+
+  g_chdir(path.c_str());
+  bool ret = appinfo->launch(files, launch_context);
+  g_chdir(Glib::get_home_dir().c_str());
+  return ret;
 }
 
 BaseItem*

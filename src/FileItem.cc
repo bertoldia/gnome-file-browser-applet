@@ -74,12 +74,17 @@ FileItem::on_button_release(const GdkEventButton* event) {
     case 3:
       return true;
     case 2:
-      open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
+      on_middle_click();
       PanelMenuBar::getInstance().deactivate();
       return true;
     default:
       return false;
   }
+}
+
+bool
+FileItem::on_middle_click() {
+  return open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
 }
 
 } //namespace

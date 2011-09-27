@@ -11,6 +11,8 @@ class MenuHeader : public FileItem {
     virtual void add_tooltip();
     virtual void add_markup(){};
 
+    virtual bool on_middle_click();
+
     explicit MenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
 
   public:

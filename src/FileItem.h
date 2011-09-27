@@ -20,6 +20,7 @@ class FileItem : public BaseItem {
 
     void on_activate_file_item();
     bool on_button_release(const GdkEventButton* event);
+    virtual bool on_middle_click();
 
     explicit FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path);
 
