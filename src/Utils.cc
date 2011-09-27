@@ -69,10 +69,10 @@ open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
 
   if (!path.empty()) {
     //RefPtr<File> _file = File::create_for_path(path);
+    //files.append(File::create_for_path(path));
 
-    // ASS
+    //FIXME: change this to use vector<RefPtr<File> > when update to more recent giomm
     GList* gfiles = NULL;
-    //gfiles = g_list_append (gfiles, (gpointer)File::create_for_path(path)->gobj());
     gfiles = g_list_append (gfiles, (gpointer)g_file_new_for_path (path.c_str()));
     gboolean ret = g_app_info_launch (appinfo->gobj(), gfiles, NULL, NULL);
     g_list_foreach (gfiles, (GFunc)g_object_unref, NULL);
