@@ -9,6 +9,8 @@ class PanelMenuBar : public Gtk::MenuBar {
   private:
     static PanelMenuBar* instance;
 
+    void add_browser(const std::string& path, const std::string& label);
+
     explicit PanelMenuBar();
 
   public:

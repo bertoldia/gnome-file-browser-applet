@@ -39,7 +39,8 @@ SET (SRCS main.cc
      DirectoryListing.cc
      DesktopItem.cc
      Preferences.cc
-     Utils.cc)
+     Utils.cc
+     MenuBrowser.cc)
 
 ADD_EXECUTABLE (${EXEC} ${SRCS})
 TARGET_LINK_LIBRARIES (${EXEC} ${LIBS})
