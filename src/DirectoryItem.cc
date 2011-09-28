@@ -1,18 +1,24 @@
 #include <iostream>
+
 #include "DirectoryItem.h"
 #include "Preferences.h"
 #include "Utils.h"
 
 namespace FileBrowserApplet {
 
+using namespace std;
+using namespace Glib;
+using namespace Gio;
+using namespace Gtk;
+
 DirectoryItem*
-DirectoryItem::make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) {
+DirectoryItem::make(const RefPtr<FileInfo>& file_info, const string& path) {
   DirectoryItem* item = new DirectoryItem(file_info, path);
   item->init();
   return item;
 }
 
-DirectoryItem::DirectoryItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
+DirectoryItem::DirectoryItem(const RefPtr<FileInfo>& file_info, const string& path) :
   BaseItem(file_info, path),
   listing(NULL) {
 
@@ -23,7 +29,7 @@ DirectoryItem::~DirectoryItem(){}
 
 void
 DirectoryItem::add_image() {
-  Gtk::Image* image(get_image_for_mime_type());
+  Image* image(get_image_for_mime_type());
   _set_image(image);
 }
 

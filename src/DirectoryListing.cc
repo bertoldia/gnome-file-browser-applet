@@ -1,20 +1,24 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+
 #include "DirectoryListing.h"
-#include "FileItem.h"
-#include "DirectoryItem.h"
 #include "Preferences.h"
 #include "Utils.h"
 
 namespace FileBrowserApplet {
+
+using namespace std;
+using namespace Glib;
+using namespace Gio;
+using namespace Gtk;
 
 bool
 file_collate_comapator(BaseItem* A, BaseItem* B) {
   return A->get_collate_key() < B->get_collate_key();
 }
 
-DirectoryListing::DirectoryListing(const std::string& path) :
+DirectoryListing::DirectoryListing(const string& path) :
   path(path),
   header(NULL) {
 }
@@ -22,7 +26,7 @@ DirectoryListing::DirectoryListing(const std::string& path) :
 DirectoryListing::~DirectoryListing(){}
 
 void
-DirectoryListing::refresh(const Glib::RefPtr<Gio::FileInfo>& file_info) {
+DirectoryListing::refresh(const RefPtr<FileInfo>& file_info) {
   clear();
   add_header(file_info);
   populate();
@@ -43,26 +47,26 @@ DirectoryListing::populate() {
 
 void
 DirectoryListing::query_file_system_sync() {
-  Glib::RefPtr<Gio::File> directory = Gio::File::create_for_path(path);
+  RefPtr<File> directory = File::create_for_path(path);
   try {
-    Glib::RefPtr<Gio::FileEnumerator> children = directory->enumerate_children();
+    RefPtr<FileEnumerator> children = directory->enumerate_children();
     add_children_entries(children);
     children->close();
   } catch (Gio::Error e) {
-    std::cout << e.what() << std::endl;
-    Gtk::MenuItem* item = manage(new Gtk::MenuItem(e.what()));
+    cout << e.what() << endl;
+    MenuItem* item = manage(new MenuItem(e.what()));
     item->set_sensitive(false);
     append(*item);
   }
 }
 
 void
-DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children) {
+DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
   Preferences& prefs = Preferences::getInstance();
-  std::vector<BaseItem*> files;
-  std::vector<BaseItem*> directories;
+  vector<BaseItem*> files;
+  vector<BaseItem*> directories;
 
-  Glib::RefPtr<Gio::FileInfo> child_info;
+  RefPtr<FileInfo> child_info;
   while (child_info = children->next_file()) {
 
     if ((!prefs.show_hidden() && child_info->is_hidden()) ||
@@ -95,31 +99,31 @@ DirectoryListing::add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& 
 }
 
 void
-DirectoryListing::add_header(const Glib::RefPtr<Gio::FileInfo>& file_info) {
+DirectoryListing::add_header(const RefPtr<FileInfo>& file_info) {
   header = manage(MenuHeader::make(file_info, path));
-  append((Gtk::MenuItem&)*header);
+  append((MenuItem&)*header);
   add_separator();
 }
 
 void
 DirectoryListing::add_separator() {
-  Gtk::SeparatorMenuItem* separator = manage(new Gtk::SeparatorMenuItem());
+  SeparatorMenuItem* separator = manage(new SeparatorMenuItem());
   append(*separator);
 }
 
 void
 DirectoryListing::add_empty_item() {
-  Gtk::MenuItem* item = manage(new Gtk::MenuItem("(Empty)"));
+  MenuItem* item = manage(new MenuItem("(Empty)"));
   item->set_sensitive(false);
   append(*item);
 }
 
 void
-DirectoryListing::add_items(std::vector<BaseItem*> items) {
+DirectoryListing::add_items(vector<BaseItem*> items) {
   sort (items.begin(), items.end(), file_collate_comapator);
 
-  for (std::vector<BaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
-      append((Gtk::MenuItem&)*(*it));
+  for (vector<BaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
+      append((MenuItem&)*(*it));
   }
 }
 

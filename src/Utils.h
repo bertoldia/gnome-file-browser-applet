@@ -3,6 +3,7 @@
 
 #include <giomm.h>
 #include <gtkmm.h>
+
 #include "BaseItem.h"
 
 namespace FileBrowserApplet {

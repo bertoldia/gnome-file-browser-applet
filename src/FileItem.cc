@@ -1,36 +1,42 @@
 #include <iostream>
+
 #include "FileItem.h"
-#include "Preferences.h"
 #include "Utils.h"
+#include "Preferences.h"
 #include "PanelMenuBar.h"
 
 namespace FileBrowserApplet {
 
+using namespace std;
+using namespace Glib;
+using namespace Gio;
+using namespace Gtk;
+
 FileItem*
-FileItem::make(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) {
+FileItem::make(const RefPtr<FileInfo>& file_info, const std::string& path) {
   FileItem* item = new FileItem(file_info, path);
   item->init();
   return item;
 }
 
-FileItem::FileItem(const Glib::RefPtr<Gio::FileInfo>& file_info, const std::string& path) :
+FileItem::FileItem(const RefPtr<FileInfo>& file_info, const std::string& path) :
   BaseItem(file_info, path) {
 }
 
 FileItem::~FileItem(){}
 
-Gtk::Image*
+Image*
 FileItem::get_image_for_thumbnail() {
   std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
   if (!thumbnail.empty()) {
-    return new Gtk::Image(thumbnail);
+    return new Image(thumbnail);
   }
   return NULL;
 }
 
 void
 FileItem::add_image() {
-  Gtk::Image* image = NULL;
+  Image* image = NULL;
 
   if (Preferences::getInstance().show_thumbnails()) {
     image = get_image_for_thumbnail();

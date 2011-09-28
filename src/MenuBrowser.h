@@ -16,8 +16,7 @@ class MenuBrowser : public DirectoryItem {
   public:
     static MenuBrowser* make(const std::string& path, const std::string& label);
 
-    void set_label(std::string& label);
-    void set_path(std::string& path);
+    void set_path(const std::string& path);
     void set_show_icon(bool show);
     //void set_icon(??);
 };

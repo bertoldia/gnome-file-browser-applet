@@ -17,8 +17,7 @@ MenuBrowser::make(const string& path, const std::string& label) {
 
 MenuBrowser::MenuBrowser(const RefPtr<FileInfo>& file_info, const string& path, const string& label) :
   DirectoryItem(file_info, path) {
-  Label* _label = (Label*)get_child();
-  _label->set_text(label);
+  set_label(label);
 }
 
 }

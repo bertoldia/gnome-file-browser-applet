@@ -1,9 +1,15 @@
 #include <iostream>
+
 #include "DesktopItem.h"
 #include "Preferences.h"
 #include "Utils.h"
 
 namespace FileBrowserApplet {
+
+using namespace std;
+using namespace Glib;
+using namespace Gio;
+using namespace Gtk;
 
 DesktopItem*
 DesktopItem::make(const Glib::RefPtr<Gio::FileInfo>& file_info,
@@ -19,17 +25,15 @@ DesktopItem::DesktopItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
                          const Glib::RefPtr<Gio::AppInfo>& appinfo) :
   FileItem(file_info, path),
   appinfo(appinfo) {
+  set_label(appinfo->get_name());
 }
 
 DesktopItem::~DesktopItem(){}
 
-Gtk::Image*
+Image*
 DesktopItem::get_image_for_desktop_file() {
-
-  set_label(appinfo->get_name()); //FIXME: this doesn't belong here.
-
-  Gtk::Image* image = new Gtk::Image();
-  image->set(appinfo->get_icon(), Gtk::ICON_SIZE_SMALL_TOOLBAR);
+  Image* image = new Image();
+  image->set(appinfo->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
   return image;
 }
 

@@ -2,6 +2,8 @@
 
 namespace FileBrowserApplet {
 
+using namespace std;
+
 // initialize static member
 Preferences* Preferences::instance(NULL);
 
@@ -43,12 +45,12 @@ Preferences::show_tooltips() {
   return true;
 }
 
-std::string
+string
 Preferences::get_alt_file_action() {
   return "gvim";
 }
 
-std::string
+string
 Preferences::get_alt_directory_action() {
   return "gnome-terminal";
 }
