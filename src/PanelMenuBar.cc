@@ -10,7 +10,7 @@ using namespace Glib;
 PanelMenuBar* PanelMenuBar::instance(NULL);
 
 PanelMenuBar::PanelMenuBar() {
-  add_browser(get_home_dir(), "Home");
+  add_browser(get_home_dir(), "");
 }
 
 PanelMenuBar&

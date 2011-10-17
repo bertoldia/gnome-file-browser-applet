@@ -20,5 +20,7 @@ MenuBrowser::MenuBrowser(const RefPtr<FileInfo>& file_info, const string& path, 
   set_label(label);
 }
 
+  //select_first();
+
 }
 
