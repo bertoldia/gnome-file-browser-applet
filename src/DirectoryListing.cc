@@ -13,6 +13,9 @@ using namespace Glib;
 using namespace Gio;
 using namespace Gtk;
 
+const unsigned int MAX_ITEMS_SHOW_SOFT(35) ;
+const unsigned int MAX_ITEMS_SHOW_HARD(30) ;
+
 bool
 file_collate_comapator(BaseItem* A, BaseItem* B) {
   return A->get_collate_key() < B->get_collate_key();
@@ -20,17 +23,19 @@ file_collate_comapator(BaseItem* A, BaseItem* B) {
 
 DirectoryListing::DirectoryListing(const string& path) :
   path(path),
-  header(NULL) {
+  header(NULL),
+  more_item(NULL) {
 }
 
-DirectoryListing::~DirectoryListing(){}
+DirectoryListing::~DirectoryListing() {
+  if(more_item) delete(more_item);
+}
 
 void
 DirectoryListing::refresh(const RefPtr<FileInfo>& file_info) {
   clear();
   add_header(file_info);
   populate();
-  show_all();
 }
 
 void
@@ -96,11 +101,18 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
   }
 
   add_items(files);
+
+  if (directories.size() + files.size() <= MAX_ITEMS_SHOW_SOFT) {
+    show_all();
+  } else {
+    show_limited();
+  }
 }
 
 void
 DirectoryListing::add_header(const RefPtr<FileInfo>& file_info) {
   header = manage(MenuHeader::make(file_info, path));
+  header->show();
   append((MenuItem&)*header);
   add_separator();
 }
@@ -108,6 +120,7 @@ DirectoryListing::add_header(const RefPtr<FileInfo>& file_info) {
 void
 DirectoryListing::add_separator() {
   SeparatorMenuItem* separator = manage(new SeparatorMenuItem());
+  separator->show();
   append(*separator);
 }
 
@@ -125,6 +138,41 @@ DirectoryListing::add_items(vector<BaseItem*> items) {
   for (vector<BaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
       append((MenuItem&)*(*it));
   }
+}
+
+void
+DirectoryListing::show_limited() {
+  vector<Widget*> items = get_children();
+  vector<Widget*>::iterator it;
+  for (unsigned int i = 0; i < MAX_ITEMS_SHOW_SOFT; i++) {
+    items[i]->show();
+  }
+  add_more_item();
+}
+
+void
+DirectoryListing::add_more_item() {
+  more_item = new ImageMenuItem(Stock::ADD);
+  more_item->set_always_show_image(true);
+
+  stringstream text;
+  text << get_children().size() - MAX_ITEMS_SHOW_HARD << " more...";
+  more_item->set_label(text.str());
+
+  more_item->signal_button_release_event().connect(sigc::mem_fun(this, &DirectoryListing::on_activate_more_item));
+  //more_item->signal_key_release_event().connect(sigc::mem_fun(this, &DirectoryListing::on_activate_more_item));
+
+  append(*more_item);
+  more_item->show();
+}
+
+bool
+DirectoryListing::on_activate_more_item(const GdkEventButton* event) {
+  set_active(MAX_ITEMS_SHOW_HARD + 1);
+  show_all();
+  delete(more_item);
+  more_item = NULL;
+  return true;
 }
 
 } //namespace

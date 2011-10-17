@@ -13,6 +13,7 @@ class DirectoryListing : public Gtk::Menu {
   private:
     std::string path;
     MenuHeader* header;
+    Gtk::ImageMenuItem* more_item;
 
     void clear();
     void populate();
@@ -22,6 +23,9 @@ class DirectoryListing : public Gtk::Menu {
     void add_separator();
     void add_empty_item();
     void add_items(std::vector<BaseItem*> items);
+    void show_limited();
+    void add_more_item();
+    bool on_activate_more_item(const GdkEventButton* event);
 
   public:
     explicit DirectoryListing(const std::string& path);
