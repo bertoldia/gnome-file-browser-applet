@@ -89,8 +89,7 @@ ADD_CUSTOM_TARGET (deb checkinstall -D --pkgname="${EXEC}"
                                        --backup=0
                                        --pkglicense="GPLv2"
                                        --maintainer="bertoldia@gmail.com"
-                                       --pkggroup="GNOME Desktop Environment"
-                                       --requires="libpanel-applet2-0")
+                                       --pkggroup="GNOME Desktop Environment")
 
 ADD_CUSTOM_TARGET (really-clean rm -fr CMakeCache.txt
                                        cmake_install.cmake
