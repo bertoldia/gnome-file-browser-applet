@@ -58,10 +58,7 @@ DirectoryListing::query_file_system_sync() {
     add_children_entries(children);
     children->close();
   } catch (Gio::Error e) {
-    cout << e.what() << endl;
-    MenuItem* item = manage(new MenuItem(e.what()));
-    item->set_sensitive(false);
-    append(*item);
+    add_error_item(e.what());
   }
 }
 
@@ -90,7 +87,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
   add_header(directories.size() + files.size());
 
   if (directories.empty() && files.empty()) {
-    add_empty_item();
+    add_error_item("(Empty)");
     return;
   }
 
@@ -125,8 +122,9 @@ DirectoryListing::add_separator() {
 }
 
 void
-DirectoryListing::add_empty_item() {
-  MenuItem* item = manage(new MenuItem("(Empty)"));
+DirectoryListing::add_error_item(const string& message) {
+  MenuItem* item = manage(new MenuItem(message));
+  item->show();
   item->set_sensitive(false);
   append(*item);
 }

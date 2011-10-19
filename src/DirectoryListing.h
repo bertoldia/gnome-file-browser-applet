@@ -20,7 +20,7 @@ class DirectoryListing : public Gtk::Menu {
     void add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children);
     void add_header(const unsigned int children_count);
     void add_separator();
-    void add_empty_item();
+    void add_error_item(const std::string& message);
     void add_items(std::vector<IBaseItem*> items);
     void show_limited();
     void add_more_item();
