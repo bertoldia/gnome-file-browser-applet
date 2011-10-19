@@ -93,18 +93,4 @@ open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
   return ret;
 }
 
-BaseItem*
-makeItem(const RefPtr<FileInfo>& file_info, const string& path) {
-  if (file_is_directory(file_info)) {
-    return DirectoryItem::make(file_info, path);
-  } else {
-    RefPtr<AppInfo> appinfo = DesktopAppInfo::create_from_filename(path);
-    if (appinfo) {
-      return DesktopItem::make(file_info, path, appinfo);
-    } else {
-      return FileItem::make(file_info, path);
-    }
-  }
-}
-
 } //namespace

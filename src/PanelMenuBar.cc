@@ -1,5 +1,5 @@
 #include "PanelMenuBar.h"
-#include "MenuBrowser.h"
+#include "Items.h"
 
 namespace FileBrowserApplet {
 
@@ -10,7 +10,7 @@ using namespace Glib;
 PanelMenuBar* PanelMenuBar::instance(NULL);
 
 PanelMenuBar::PanelMenuBar() {
-  add_browser(get_home_dir(), "");
+  add_browser(get_home_dir(), "Home");
 }
 
 PanelMenuBar&
@@ -23,7 +23,7 @@ PanelMenuBar::getInstance() {
 
 void
 PanelMenuBar::add_browser(const string& path, const string& label) {
-  MenuBrowser* browser = manage(MenuBrowser::make(path, label));
+  IBaseItem* browser = manage(makeMenuBrowser(path, label));
   append(*browser);
 }
 

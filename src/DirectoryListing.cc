@@ -17,13 +17,14 @@ const unsigned int MAX_ITEMS_SHOW_SOFT(35) ;
 const unsigned int MAX_ITEMS_SHOW_HARD(30) ;
 
 bool
-file_collate_comapator(BaseItem* A, BaseItem* B) {
+file_collate_comapator(IBaseItem* A, IBaseItem* B) {
   return A->get_collate_key() < B->get_collate_key();
 }
 
-DirectoryListing::DirectoryListing(const string& path) :
+DirectoryListing::DirectoryListing(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                                   const std::string& path) :
   path(path),
-  header(NULL),
+  file_info(file_info),
   more_item(NULL) {
 }
 
@@ -32,9 +33,8 @@ DirectoryListing::~DirectoryListing() {
 }
 
 void
-DirectoryListing::refresh(const RefPtr<FileInfo>& file_info) {
+DirectoryListing::refresh() {
   clear();
-  add_header(file_info);
   populate();
 }
 
@@ -68,8 +68,8 @@ DirectoryListing::query_file_system_sync() {
 void
 DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
   Preferences& prefs = Preferences::getInstance();
-  vector<BaseItem*> files;
-  vector<BaseItem*> directories;
+  vector<IBaseItem*> files;
+  vector<IBaseItem*> directories;
 
   RefPtr<FileInfo> child_info;
   while (child_info = children->next_file()) {
@@ -79,7 +79,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
       continue;
     }
 
-    BaseItem* item = manage(makeItem(child_info, path + "/" + child_info->get_name()));
+    IBaseItem* item = manage(makeItem(child_info, path + "/" + child_info->get_name()));
     if (file_is_directory(child_info)) {
       directories.push_back(item);
     } else {
@@ -87,7 +87,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
     }
   }
 
-  header->set_tooltip_item_count(directories.size() + files.size());
+  add_header(directories.size() + files.size());
 
   if (directories.empty() && files.empty()) {
     add_empty_item();
@@ -110,8 +110,8 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
 }
 
 void
-DirectoryListing::add_header(const RefPtr<FileInfo>& file_info) {
-  header = manage(MenuHeader::make(file_info, path));
+DirectoryListing::add_header(const unsigned int children_count) {
+  IBaseItem* header = manage(makeMenuHeader(file_info, path, children_count));
   header->show();
   append((MenuItem&)*header);
   add_separator();
@@ -132,10 +132,10 @@ DirectoryListing::add_empty_item() {
 }
 
 void
-DirectoryListing::add_items(vector<BaseItem*> items) {
+DirectoryListing::add_items(vector<IBaseItem*> items) {
   sort (items.begin(), items.end(), file_collate_comapator);
 
-  for (vector<BaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
+  for (vector<IBaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
       append((MenuItem&)*(*it));
   }
 }

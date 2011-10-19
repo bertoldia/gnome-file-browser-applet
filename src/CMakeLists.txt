@@ -32,15 +32,10 @@ MESSAGE("")
 
 SET (SRCS main.cc
      PanelMenuBar.cc
-     BaseItem.cc
-     FileItem.cc
-     DirectoryItem.cc
-     MenuHeader.cc
      DirectoryListing.cc
-     DesktopItem.cc
      Preferences.cc
      Utils.cc
-     MenuBrowser.cc)
+     Items.cc)
 
 ADD_EXECUTABLE (${EXEC} ${SRCS})
 TARGET_LINK_LIBRARIES (${EXEC} ${LIBS})

@@ -21,18 +21,26 @@
 #ifndef ITEMS
 #define ITEMS
 
+#include <iostream>
 #include <giomm.h>
 #include <gtkmm.h>
 
 namespace FileBrowserApplet {
 
-Gtk::ImageMenuItem* makeItem2(const Glib::RefPtr<Gio::FileInfo>& file_info,
-                             const std::string& path);
-Gtk::ImageMenuItem* makeMenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info,
-                                   const std::string& path,
-                                   const int children_count);
-Gtk::ImageMenuItem* makeMenuBrowser(const std::string& path,
-                                    const std::string& label);
+class IBaseItem : public Gtk::ImageMenuItem {
+  public:
+    virtual const std::string& get_collate_key() = 0;
+    explicit IBaseItem(const std::string& label) :
+      Gtk::ImageMenuItem(label, true) {}
+};
+
+IBaseItem* makeItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                    const std::string& path);
+IBaseItem* makeMenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                          const std::string& path,
+                          const int children_count);
+IBaseItem* makeMenuBrowser(const std::string& path,
+                           const std::string& label);
 
 } //namespace
 
