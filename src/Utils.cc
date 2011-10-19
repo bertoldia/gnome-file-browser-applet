@@ -3,9 +3,6 @@
 #include <glib/gstdio.h>
 
 #include "Utils.h"
-#include "DirectoryItem.h"
-#include "FileItem.h"
-#include "DesktopItem.h"
 
 namespace FileBrowserApplet {
 
