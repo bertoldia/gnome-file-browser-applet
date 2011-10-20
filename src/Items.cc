@@ -26,6 +26,7 @@
 #include "PanelMenuBar.h"
 #include "Preferences.h"
 #include "Utils.h"
+#include "ContextMenu.h"
 
 namespace FileBrowserApplet {
 
@@ -122,6 +123,8 @@ class BaseItem : public IBaseItem {
 /*************************** FileItem ******************************************/
 class FileItem : public BaseItem {
   private:
+    ContextMenu* context_menu;
+
     Image* get_image_for_thumbnail() {
       std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
       if (!thumbnail.empty()) {
@@ -168,6 +171,7 @@ class FileItem : public BaseItem {
     bool on_button_release(const GdkEventButton* event) {
       switch (event->button) {
         case 3:
+          on_right_click(event);
           return true;
         case 2:
           PanelMenuBar::getInstance().deactivate();
@@ -182,10 +186,23 @@ class FileItem : public BaseItem {
       return open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
     }
 
+    ContextMenu* get_context_menu() {
+      if (context_menu == NULL)
+        context_menu = manage(new ContextMenu(path));
+      return context_menu;
+    }
+
+    virtual void on_right_click(const GdkEventButton* event) {
+      //PanelMenuBar::getInstance().set_sensitive(false);
+      ContextMenu* cm = get_context_menu();
+      cm->popup(0, event->time);
+    }
+
   public:
     explicit FileItem(const RefPtr<FileInfo>& file_info,
                       const std::string& path) :
-      BaseItem(file_info, path) {
+      BaseItem(file_info, path),
+      context_menu(NULL) {
     }
 
     virtual ~FileItem(){}
