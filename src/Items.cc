@@ -170,6 +170,7 @@ class FileItem : public BaseItem {
         case 3:
           return true;
         case 2:
+          PanelMenuBar::getInstance().deactivate();
           on_middle_click();
           return true;
         default:
@@ -178,7 +179,6 @@ class FileItem : public BaseItem {
     }
 
     virtual bool on_middle_click() {
-      PanelMenuBar::getInstance().deactivate();
       return open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
     }
 
