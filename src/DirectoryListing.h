@@ -15,6 +15,7 @@ class DirectoryListing : public Gtk::Menu {
     Gtk::ImageMenuItem* more_item;
 
     void clear();
+    void remove_child(Gtk::Widget& widget);
     void populate();
     void query_file_system_sync();
     void add_children_entries(const Glib::RefPtr<Gio::FileEnumerator>& children);

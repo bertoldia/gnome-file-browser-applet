@@ -31,13 +31,18 @@ namespace FileBrowserApplet {
 class ContextMenu : public Gtk::Menu {
   private:
     std::string path;
+    Gtk::MenuItem& parent_menu_item;
     Glib::RefPtr<Gio::File> file;
     Glib::RefPtr<Gio::FileInfo> file_info;
 
+    void tree_set_sensitive(gboolean sensitive);
     void add_trash_item();
+    void cleanup();
 
   public:
-    explicit ContextMenu(const std::string& path);
+    explicit ContextMenu(const std::string& path, Gtk::MenuItem& parent_menu_item);
+    void pop_up(const guint button,
+                const guint32 time);
     ~ContextMenu();
 };
 

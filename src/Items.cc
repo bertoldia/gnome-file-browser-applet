@@ -77,7 +77,7 @@ class BaseItem : public IBaseItem {
 
     Image* get_image_for_mime_type() {
       Image* image = new Image();
-      image->set(file_info->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
+      image->set((RefPtr<const Icon>)file_info->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
       return image;
     }
 
@@ -188,14 +188,13 @@ class FileItem : public BaseItem {
 
     ContextMenu* get_context_menu() {
       if (context_menu == NULL)
-        context_menu = manage(new ContextMenu(path));
+        context_menu = manage(new ContextMenu(path, *this));
       return context_menu;
     }
 
     virtual void on_right_click(const GdkEventButton* event) {
-      //PanelMenuBar::getInstance().set_sensitive(false);
       ContextMenu* cm = get_context_menu();
-      cm->popup(0, event->time);
+      cm->pop_up(0, event->time);
     }
 
   public:
@@ -214,7 +213,7 @@ class DesktopItem : public FileItem {
 
     Image* get_image_for_desktop_file() {
       Image* image = new Image();
-      image->set(appinfo->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
+      image->set((RefPtr<const Icon>)appinfo->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
       return image;
     }
 

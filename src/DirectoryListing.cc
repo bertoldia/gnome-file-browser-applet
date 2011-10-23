@@ -40,9 +40,14 @@ DirectoryListing::refresh() {
 
 void
 DirectoryListing::clear () {
-  // Does this delete the menu items too, or just remove them from the menu?
-  // It deletes them.
-  items().erase(items().begin(), items().end());
+  sigc::slot<void, Widget&> slot = mem_fun(this, &DirectoryListing::remove_child);
+  foreach(slot);
+}
+
+void
+DirectoryListing::remove_child(Widget& widget) {
+  remove(widget);
+  delete(&widget);
 }
 
 void
