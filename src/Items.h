@@ -32,6 +32,7 @@ class IBaseItem : public Gtk::ImageMenuItem {
     virtual const std::string& get_collate_key() = 0;
     explicit IBaseItem(const std::string& label) :
       Gtk::ImageMenuItem(label, true) {}
+    virtual ~IBaseItem(){};
 };
 
 IBaseItem* makeItem(const Glib::RefPtr<Gio::FileInfo>& file_info,

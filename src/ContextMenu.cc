@@ -30,47 +30,61 @@ using namespace Gio;
 using namespace Glib;
 using namespace Gtk;
 
-ContextMenu::ContextMenu(const string& path, MenuItem& parent_menu_item):
-  path(path),
-  parent_menu_item(parent_menu_item),
-  file(File::create_for_path(path)),
-  file_info(file->query_info()) {
-  add_trash_item();
+class ContextMenu : public IContextMenu {
+  private:
+  std::string path;
+  Gtk::MenuItem& parent_menu_item;
+  Glib::RefPtr<Gio::File> file;
+  Glib::RefPtr<Gio::FileInfo> file_info;
 
-  signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
-  show_all();
-}
+  public:
+  ContextMenu(const string& path, MenuItem& parent_menu_item):
+    path(path),
+    parent_menu_item(parent_menu_item),
+    file(File::create_for_path(path)),
+    file_info(file->query_info()) {
+    add_trash_item();
 
-ContextMenu::~ContextMenu() {
-}
-
-void
-ContextMenu::add_trash_item() {
-  ImageMenuItem* item = manage(new ImageMenuItem(Stock::DELETE));
-  append(*item);
-
-  cout << "adding trash for " << path << endl;
-}
-
-void
-ContextMenu::pop_up(const guint button,
-                    const guint32 time) {
-  tree_set_sensitive(false);
-  popup(button, time);
-}
-
-void
-ContextMenu::tree_set_sensitive(gboolean sensitive) {
-  Widget* menu_shell = parent_menu_item.get_parent();
-  while (menu_shell) {
-    menu_shell->set_sensitive(sensitive);
-    menu_shell = ((MenuShell*)menu_shell)->get_parent_shell();
+    signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
+    show_all();
   }
-}
 
-void
-ContextMenu::cleanup() {
-  tree_set_sensitive(true);
+  virtual ~ContextMenu() {
+  }
+
+  void
+  pop_up(const guint button, const guint32 time) {
+    tree_set_sensitive(false);
+    popup(button, time);
+  }
+
+  private:
+  void
+  tree_set_sensitive(gboolean sensitive) {
+    Widget* menu_shell = parent_menu_item.get_parent();
+    while (menu_shell) {
+      menu_shell->set_sensitive(sensitive);
+      menu_shell = ((MenuShell*)menu_shell)->get_parent_shell();
+    }
+  }
+
+  void
+  cleanup() {
+    tree_set_sensitive(true);
+  }
+
+  void
+  add_trash_item() {
+    ImageMenuItem* item = manage(new ImageMenuItem(Stock::DELETE));
+    append(*item);
+
+    cout << "adding trash for " << path << endl;
+  }
+};
+
+IContextMenu*
+makeContextMenu(const std::string& path, Gtk::MenuItem& parent_menu_item) {
+  return new ContextMenu(path, parent_menu_item);
 }
 
 } //namespace

@@ -123,7 +123,7 @@ class BaseItem : public IBaseItem {
 /*************************** FileItem ******************************************/
 class FileItem : public BaseItem {
   private:
-    ContextMenu* context_menu;
+    IContextMenu* context_menu;
 
     Image* get_image_for_thumbnail() {
       std::string thumbnail = file_info->get_attribute_byte_string(G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
@@ -186,14 +186,14 @@ class FileItem : public BaseItem {
       return open_file_with_app(Preferences::getInstance().get_alt_file_action(), path);
     }
 
-    ContextMenu* get_context_menu() {
+    IContextMenu* get_context_menu() {
       if (context_menu == NULL)
-        context_menu = manage(new ContextMenu(path, *this));
+        context_menu = manage(makeContextMenu(path, *this));
       return context_menu;
     }
 
     virtual void on_right_click(const GdkEventButton* event) {
-      ContextMenu* cm = get_context_menu();
+      IContextMenu* cm = get_context_menu();
       cm->pop_up(0, event->time);
     }
 
