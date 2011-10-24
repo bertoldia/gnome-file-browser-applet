@@ -43,7 +43,9 @@ class ContextMenu : public IContextMenu {
     parent_menu_item(parent_menu_item),
     file(File::create_for_path(path)),
     file_info(file->query_info()) {
+
     add_trash_item();
+    add_delete_item();
 
     signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
     show_all();
@@ -75,10 +77,17 @@ class ContextMenu : public IContextMenu {
 
   void
   add_trash_item() {
-    ImageMenuItem* item = manage(new ImageMenuItem(Stock::DELETE));
+    Image* image = new Image();
+    image->set_from_icon_name("stock_trash_full", ICON_SIZE_SMALL_TOOLBAR);
+    ImageMenuItem* item = manage(new ImageMenuItem(*image, "Move To _Trash", true));
     append(*item);
+  }
 
-    cout << "adding trash for " << path << endl;
+  void
+  add_delete_item() {
+    ImageMenuItem* item = manage(new ImageMenuItem("_Delete Permanently", true));
+    item->set_image((Widget&)*(new Image(Stock::DELETE, ICON_SIZE_SMALL_TOOLBAR)));
+    append(*item);
   }
 };
 
