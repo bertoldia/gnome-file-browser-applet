@@ -63,6 +63,7 @@ class ContextMenu : public IContextMenu {
   private:
   void
   tree_set_sensitive(gboolean sensitive) {
+    return;
     Widget* menu_shell = parent_menu_item.get_parent();
     while (menu_shell) {
       menu_shell->set_sensitive(sensitive);
@@ -73,6 +74,8 @@ class ContextMenu : public IContextMenu {
   void
   cleanup() {
     tree_set_sensitive(true);
+    //parent_menu_item.grab_focus();
+    parent_menu_item.get_parent()->grab_focus();
   }
 
   void

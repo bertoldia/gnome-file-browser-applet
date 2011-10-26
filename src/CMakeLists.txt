@@ -36,7 +36,8 @@ SET (SRCS main.cc
      Preferences.cc
      Utils.cc
      Items.cc
-     ContextMenu.cc)
+     ContextMenu.cc
+     TrayIcon.cc)
 
 ADD_EXECUTABLE (${EXEC} ${SRCS})
 TARGET_LINK_LIBRARIES (${EXEC} ${LIBS})
