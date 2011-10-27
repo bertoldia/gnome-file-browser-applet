@@ -84,6 +84,14 @@ class ContextMenu : public IContextMenu {
     image->set_from_icon_name("stock_trash_full", ICON_SIZE_SMALL_TOOLBAR);
     ImageMenuItem* item = manage(new ImageMenuItem(*image, "Move To _Trash", true));
     append(*item);
+
+    item->signal_activate().connect(sigc::mem_fun(this, &ContextMenu::on_trash_item_activate));
+  }
+
+  void
+  on_trash_item_activate() {
+    file->trash();
+    delete(&parent_menu_item);
   }
 
   void
