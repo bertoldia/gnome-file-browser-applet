@@ -176,7 +176,7 @@ class FileItem : public BaseItem {
         case 2:
           PanelMenuBar::getInstance().deactivate();
           on_middle_click();
-          return true;
+          return false;
         default:
           return false;
       }

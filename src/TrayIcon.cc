@@ -41,6 +41,7 @@ void
 TrayIcon::on_tray_icon_activate() {
   dir_menu->refresh();
   popup_menu_at_position(*dir_menu, 0, gtk_get_current_event_time());
+  dir_menu->select_first();
 }
 
 
