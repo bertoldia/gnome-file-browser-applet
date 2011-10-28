@@ -1,29 +1,29 @@
-#include <gtkmm.h>
-#include <giomm.h>
-#include <iostream>
-#include "PanelMenuBar.h"
-#include "PanelMenuBar.h"
+/*
+ * Copyright 2011 Axel von Bertoldi
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to:
+ * The Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor
+ * Boston, MA 02110-1301, USA.
+ */
+
 #include "TrayIcon.h"
 
 using namespace FileBrowserApplet;
 
-int main(int argc, char* argv[]) {
-
+int main(int argc, char** argv) {
   Gtk::Main kit(argc, argv);
-
-  //Gtk::Window window;
-
-  //Gtk::VBox vbox;
-  //PanelMenuBar& menu_bar(PanelMenuBar::getInstance());
-
-  //window.add(vbox);
-  //vbox.pack_start(menu_bar);
-
-  //window.show_all();
-
-
   TrayIcon* tray = new TrayIcon();
-  //Gtk::Main::run(window);
-  Gtk::Main::run();
-  return EXIT_SUCCESS;
+  return tray->main(argc, argv);
 }

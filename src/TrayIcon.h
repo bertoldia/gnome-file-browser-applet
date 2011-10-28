@@ -28,16 +28,21 @@ namespace FileBrowserApplet {
 
 class TrayIcon : public Gtk::StatusIcon {
   private:
-    DirectoryListing* dir_menu;
+    DirectoryListing* browser_menu;
+    Gtk::Menu* meta_menu;
+
     void on_tray_icon_activate();
+    void on_popup_menu(guint button, guint32 activate_time);
+    void init_browser_menu();
+    void init_meta_menu();
+    void on_quit();
 
   public:
     TrayIcon();
-    virtual ~TrayIcon(){}
+    ~TrayIcon();
+    int main(int argc, char** argv);
 };
 
 } //namespace
 
 #endif
-
-
