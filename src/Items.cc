@@ -23,7 +23,7 @@
 
 #include "Items.h"
 #include "DirectoryListing.h"
-#include "PanelMenuBar.h"
+#include "TrayIcon.h"
 #include "Preferences.h"
 #include "Utils.h"
 #include "ContextMenu.h"
@@ -174,9 +174,9 @@ class FileItem : public BaseItem {
           on_right_click(event);
           return true;
         case 2:
-          PanelMenuBar::getInstance().deactivate();
+          TrayIcon::getInstance().popdown();
           on_middle_click();
-          return false;
+          return true;
         default:
           return false;
       }

@@ -28,11 +28,24 @@ using namespace Gio;
 using namespace Glib;
 using namespace Gtk;
 
+// initialize static member
+TrayIcon* TrayIcon::instance(NULL);
+
+
 int
 TrayIcon::main(int argc, char** argv) {
   Gtk::Main::run();
   return EXIT_SUCCESS;
 }
+
+TrayIcon&
+TrayIcon::getInstance() {
+  if (instance == NULL) {
+    instance = new TrayIcon();
+  }
+  return *instance;
+}
+
 
 TrayIcon::TrayIcon() {
   set("user-home");
@@ -87,6 +100,11 @@ TrayIcon::init_meta_menu() {
 void
 TrayIcon::on_quit() {
   Gtk::Main::quit();
+}
+
+void
+TrayIcon::popdown() {
+  browser_menu->popdown();
 }
 
 } //namespace

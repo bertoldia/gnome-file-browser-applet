@@ -28,6 +28,7 @@ namespace FileBrowserApplet {
 
 class TrayIcon : public Gtk::StatusIcon {
   private:
+    static TrayIcon* instance;
     DirectoryListing* browser_menu;
     Gtk::Menu* meta_menu;
 
@@ -37,10 +38,13 @@ class TrayIcon : public Gtk::StatusIcon {
     void init_meta_menu();
     void on_quit();
 
-  public:
     TrayIcon();
+
+  public:
+    static TrayIcon& getInstance();
     ~TrayIcon();
     int main(int argc, char** argv);
+    void popdown();
 };
 
 } //namespace
