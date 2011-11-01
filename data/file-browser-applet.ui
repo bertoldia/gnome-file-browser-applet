@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 2.16 -->
+  <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkDialog" id="preferences_dialog">
     <property name="visible">True</property>
@@ -57,7 +57,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="has_tooltip">True</property>
-                                <property name="tooltip-text" translatable="yes">Add a new Folder to browse.</property>
+                                <property name="tooltip_text" translatable="yes">Add a new Folder to browse.</property>
                                 <child>
                                   <object class="GtkImage" id="image2">
                                     <property name="visible">True</property>
@@ -77,7 +77,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="has_tooltip">True</property>
-                                <property name="tooltip-text" translatable="yes">Remove the selected Folder.</property>
+                                <property name="tooltip_text" translatable="yes">Remove the selected Folder.</property>
                                 <child>
                                   <object class="GtkImage" id="image3">
                                     <property name="visible">True</property>
@@ -97,7 +97,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="has_tooltip">True</property>
-                                <property name="tooltip-text" translatable="yes">Move the selected Folder up/left.</property>
+                                <property name="tooltip_text" translatable="yes">Move the selected Folder up/left.</property>
                                 <child>
                                   <object class="GtkImage" id="image4">
                                     <property name="visible">True</property>
@@ -117,7 +117,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="has_tooltip">True</property>
-                                <property name="tooltip-text" translatable="yes">Move the selected Folder down/right.</property>
+                                <property name="tooltip_text" translatable="yes">Move the selected Folder down/right.</property>
                                 <child>
                                   <object class="GtkImage" id="image5">
                                     <property name="visible">True</property>
@@ -174,7 +174,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip-text" translatable="yes">Show files beginning with a "." in the menu browser.</property>
+                            <property name="tooltip_text" translatable="yes">Show files beginning with a "." in the menu browser.</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -191,7 +191,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip-text" translatable="yes">Don't show files when displaying a folder's contents.</property>
+                            <property name="tooltip_text" translatable="yes">Don't show files when displaying a folder's contents.</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -208,7 +208,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip-text" translatable="yes">Specify text orientation when the panel is vertical.</property>
+                            <property name="tooltip_text" translatable="yes">Specify text orientation when the panel is vertical.</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -225,7 +225,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip-text" translatable="yes">Show image and document thumbnails if they exists</property>
+                            <property name="tooltip_text" translatable="yes">Show image and document thumbnails if they exists</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -241,68 +241,11 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="tooltip-text" translatable="yes">Ask for confirmation before running executable text files.</property>
+                            <property name="tooltip_text" translatable="yes">Ask for confirmation before running executable text files.</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
                             <property name="position">4</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton" id="show_icon_check">
-                            <property name="label" translatable="yes">Show applet icon</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="has_tooltip">True</property>
-                            <property name="tooltip-text" translatable="yes">Show the selected icon in the applet.</property>
-                            <property name="use_underline">True</property>
-                            <property name="draw_indicator">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">5</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkHBox" id="hbox9">
-                            <property name="visible">True</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkLabel" id="label14">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Select applet icon:</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="icon_button">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="has_tooltip">True</property>
-                                <property name="tooltip-text" translatable="yes">Select the icon to show in the applet.</property>
-                                <child>
-                                  <object class="GtkImage" id="image1">
-                                    <property name="visible">True</property>
-                                    <property name="stock">gtk-about</property>
-                                  </object>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="position">6</property>
                           </packing>
                         </child>
                       </object>
@@ -343,7 +286,7 @@
                             <child>
                               <object class="GtkLabel" id="label16">
                                 <property name="visible">True</property>
-                                <property name="tooltip-text" translatable="yes">This command will be executed on right-click or F4 on a Folder entry in the menu browser.</property>
+                                <property name="tooltip_text" translatable="yes">This command will be executed on right-click or F4 on a Folder entry in the menu browser.</property>
                                 <property name="label" translatable="yes">Folders:</property>
                               </object>
                               <packing>
@@ -375,7 +318,7 @@
                             <child>
                               <object class="GtkLabel" id="label2">
                                 <property name="visible">True</property>
-                                <property name="tooltip-text" translatable="yes">This command will be executed on right-click or F4 on a File entry in the menu browser.</property>
+                                <property name="tooltip_text" translatable="yes">This command will be executed on right-click or F4 on a File entry in the menu browser.</property>
                                 <property name="label" translatable="yes">Files:</property>
                               </object>
                               <packing>
@@ -407,7 +350,7 @@
                   <object class="GtkLabel" id="label17">
                     <property name="visible">True</property>
                     <property name="ypad">6</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Middle-Click/Alt-F4 Action&lt;/b&gt;</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Middle-Click/Alternative Action&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
                   </object>
                 </child>
@@ -495,7 +438,7 @@
               <object class="GtkEntry" id="new_dir_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
                 <property name="activates_default">True</property>
               </object>
               <packing>
