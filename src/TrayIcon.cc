@@ -89,6 +89,7 @@ TrayIcon::init_meta_menu() {
 
   item = new ImageMenuItem(Stock::ABOUT);
   meta_menu->append(*item);
+  item->signal_activate().connect(sigc::mem_fun(this, &TrayIcon::on_about));
 
   item = new ImageMenuItem(Stock::QUIT);
   meta_menu->append(*item);
@@ -105,6 +106,43 @@ TrayIcon::on_quit() {
 void
 TrayIcon::popdown() {
   browser_menu->popdown();
+}
+
+void
+TrayIcon::on_about() {
+  std::vector<Glib::ustring> authors;
+  authors.push_back("Axel von Bertoldi <bertoldia@gmail.com>");
+  authors.push_back("Contributions by:");
+  authors.push_back("Ivan N. Zlatev <contact@i-nz.net>");
+  authors.push_back("Stefano Maggiolo <maggiolo@mail.dm.unipi.it>");
+  authors.push_back("Deji Akingunola <dakingun@gmail.com>");
+  authors.push_back("Serkan Kaba <serkan@gentoo.org>");
+  authors.push_back("Silvio Ricardo Cordeiro <silvioricardoc@gmail.com>");
+  authors.push_back("pachoramos");
+  authors.push_back("Ivan Baldo <ibaldo@adinet.com.uy>");
+
+  std::vector<Glib::ustring> documenters;
+  documenters.push_back("You!!! That's right! You can help!");
+
+  std::string translators("translator-credits");
+  if (translators == "translator-credits")
+    translators = "You!!! That's right! You can help!";
+
+  AboutDialog about;
+  about.set_name("File Browser Applet");
+  about.set_program_name("File Browser Applet");
+  about.set_version("1.0");
+  about.set_logo(IconTheme::get_default()->load_icon("file-browser-applet", 48, (Gtk::IconLookupFlags) 0));
+  about.set_copyright("Copyright \xc2\xa9 2006-2011 Axel von Bertoldi");
+  about.set_comments("Browse and open files in your home directory from the panel.");
+
+  about.set_website("http://code.google.com/p/gnome-menu-file-browser-applet/");
+  about.set_website_label("Homepage");
+  about.set_authors(authors);
+  about.set_documenters(documenters);
+  about.set_translator_credits(translators);
+  about.set_icon_name("file-browser-applet");
+  about.run();
 }
 
 } //namespace

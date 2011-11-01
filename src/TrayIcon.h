@@ -37,6 +37,7 @@ class TrayIcon : public Gtk::StatusIcon {
     void init_browser_menu();
     void init_meta_menu();
     void on_quit();
+    void on_about();
 
     TrayIcon();
 
