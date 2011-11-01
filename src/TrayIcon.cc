@@ -1,4 +1,4 @@
-/*
+ /*
  * Copyright 2011 Axel von Bertoldi
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -84,14 +84,14 @@ TrayIcon::init_meta_menu() {
 
   ImageMenuItem* item;
 
-  item = new ImageMenuItem(Stock::PREFERENCES);
+  item = manage(new ImageMenuItem(Stock::PREFERENCES));
   meta_menu->append(*item);
 
-  item = new ImageMenuItem(Stock::ABOUT);
+  item = manage(new ImageMenuItem(Stock::ABOUT));
   meta_menu->append(*item);
   item->signal_activate().connect(sigc::mem_fun(this, &TrayIcon::on_about));
 
-  item = new ImageMenuItem(Stock::QUIT);
+  item = manage(new ImageMenuItem(Stock::QUIT));
   meta_menu->append(*item);
   item->signal_activate().connect(sigc::mem_fun(this, &TrayIcon::on_quit));
 
@@ -132,7 +132,7 @@ TrayIcon::on_about() {
   about.set_name("File Browser Applet");
   about.set_program_name("File Browser Applet");
   about.set_version("1.0");
-  about.set_logo(IconTheme::get_default()->load_icon("file-browser-applet", 48, (Gtk::IconLookupFlags) 0));
+  about.set_logo(IconTheme::get_default()->load_icon("user-home", 48, (Gtk::IconLookupFlags) 0));
   about.set_copyright("Copyright \xc2\xa9 2006-2011 Axel von Bertoldi");
   about.set_comments("Browse and open files in your home directory from the panel.");
 
@@ -141,7 +141,7 @@ TrayIcon::on_about() {
   about.set_authors(authors);
   about.set_documenters(documenters);
   about.set_translator_credits(translators);
-  about.set_icon_name("file-browser-applet");
+  about.set_icon_name("user-home");
   about.run();
 }
 
