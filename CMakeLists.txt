@@ -19,21 +19,6 @@ IF (NOT DEFINED CMAKE_INSTALL_PREFIX)
 ENDIF (NOT DEFINED CMAKE_INSTALL_PREFIX)
 MESSAGE (STATUS "Using CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 ################################################################################
-IF (NOT DEFINED CMAKE_INSTALL_LIB_PREFIX)
-    SET (CMAKE_INSTALL_LIB_PREFIX "${CMAKE_INSTALL_PREFIX}/lib")
-ENDIF (NOT DEFINED CMAKE_INSTALL_LIB_PREFIX)
-MESSAGE (STATUS "Using CMAKE_INSTALL_LIB_PREFIX=${CMAKE_INSTALL_LIB_PREFIX}")
-################################################################################
-IF (NOT DEFINED CMAKE_INSTALL_LIB_EXEC_DIR)
-    SET (CMAKE_INSTALL_LIB_EXEC_DIR "${CMAKE_INSTALL_LIB_PREFIX}/${EXEC}")
-ENDIF (NOT DEFINED CMAKE_INSTALL_LIB_EXEC_DIR)
-MESSAGE (STATUS "Using CMAKE_INSTALL_LIB_EXEC_DIR=${CMAKE_INSTALL_LIB_EXEC_DIR}")
-################################################################################
-IF (NOT DEFINED CMAKE_INSTALL_BONOBO_DIR)
-    SET (CMAKE_INSTALL_BONOBO_DIR "${CMAKE_INSTALL_LIB_PREFIX}/bonobo/servers")
-ENDIF (NOT DEFINED CMAKE_INSTALL_BONOBO_DIR)
-MESSAGE (STATUS "Using CMAKE_INSTALL_BONOBO_DIR=${CMAKE_INSTALL_BONOBO_DIR}")
-################################################################################
 IF (NOT DEFINED CMAKE_INSTALL_GCONF_SCHEMA_DIR)
     SET(CMAKE_INSTALL_GCONF_SCHEMA_DIR "${CMAKE_INSTALL_PREFIX}/share/gconf/schemas")
 ENDIF(NOT DEFINED CMAKE_INSTALL_GCONF_SCHEMA_DIR)
@@ -81,15 +66,6 @@ SET (CPACK_SOURCE_IGNORE_FILES
      "doc"
      "po")
 INCLUDE (CPack)
-
-ADD_CUSTOM_TARGET (deb checkinstall -D --pkgname="${EXEC}"
-                                       --pkgversion="${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}"
-                                       --install=0
-                                       --deldoc=1
-                                       --backup=0
-                                       --pkglicense="GPLv2"
-                                       --maintainer="bertoldia@gmail.com"
-                                       --pkggroup="GNOME Desktop Environment")
 
 ADD_CUSTOM_TARGET (really-clean rm -fr CMakeCache.txt
                                        cmake_install.cmake

@@ -31,7 +31,6 @@ MESSAGE("")
                 #"${FILE_BROWSER_APPLET_SOURCE_DIR}/src/config.h")
 
 SET (SRCS main.cc
-     PanelMenuBar.cc
      DirectoryListing.cc
      Preferences.cc
      Utils.cc
@@ -42,4 +41,4 @@ SET (SRCS main.cc
 ADD_EXECUTABLE (${EXEC} ${SRCS})
 TARGET_LINK_LIBRARIES (${EXEC} ${LIBS})
 
-INSTALL (TARGETS ${EXEC} DESTINATION "${CMAKE_INSTALL_LIB_EXEC_DIR}")
+INSTALL (TARGETS ${EXEC} DESTINATION "${CMAKE_INSTALL_PREFIX}/bin}")
