@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=File Browser Applet
+Comment=Browse and open files in your home directory from the panel
+GenericName=Note-taker
+Exec=file-browser-applet
+Icon=user-home
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility;
