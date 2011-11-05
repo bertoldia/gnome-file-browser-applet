@@ -43,13 +43,19 @@ bool
 open_file(const string& path) {
   RefPtr<File> file = File::create_for_path(path);
   if(!file->query_exists()) {
-    // FIXME: do something!
+    show_dialog("Error", "Failed to open file: " + path + " does not exists.",
+                Stock::DIALOG_ERROR);
     return false;
   }
 
   cout << "opening " << file->get_uri() << endl;
   g_chdir(file->get_path().c_str());
-  AppInfo::launch_default_for_uri(file->get_uri());
+  try {
+    AppInfo::launch_default_for_uri(file->get_uri());
+  } catch (Glib::Error e) {
+    show_dialog("Error", e.what(), Stock::DIALOG_ERROR);
+  }
+
   g_chdir(get_home_dir().c_str());
   return false;
 }
@@ -63,7 +69,8 @@ open_file_with_app(const string& app, const string& path) {
 bool
 open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
   if (!appinfo) {
-    // FIXME: do something!
+    show_dialog("Error", "Could not open " + path +
+                " with the specified application.", Stock::DIALOG_ERROR);
     return false;
   }
 
@@ -85,9 +92,23 @@ open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
 
   RefPtr<AppLaunchContext> launch_context(0);
   g_chdir(path.c_str());
-  bool ret = appinfo->launch(files, launch_context);
+  bool ret = false;
+  try {
+    ret = appinfo->launch(files, launch_context);
+  } catch (Glib::Error e) {
+    show_dialog("Error", e.what(), Stock::DIALOG_ERROR);
+  }
   g_chdir(get_home_dir().c_str());
   return ret;
+}
+
+void
+show_dialog(std::string title, std::string message, Gtk::StockID image) {
+  MessageDialog dialog("<span weight=\"bold\">" + message + "</span>", true);
+  dialog.set_title(title);
+  dialog.set_image((Widget&)*(new Image(image, ICON_SIZE_DIALOG)));
+  dialog.show_all();
+  dialog.run();
 }
 
 } //namespace
