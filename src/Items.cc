@@ -315,19 +315,6 @@ class MenuHeader : public FileItem {
 
     virtual ~MenuHeader(){}
 };
-/*************************** MenuBrowser ***************************************/
-class MenuBrowser : public DirectoryItem {
-  public:
-    explicit MenuBrowser( const string& path,
-                         const string& label) :
-      DirectoryItem(File::create_for_path(path)->query_info(), path) {
-      set_label(label);
-    }
-
-    //void set_path(const string& path);
-    //void set_label(const string& path);
-    //void set_show_icon(bool show);
-};
 /*************************** Factories *****************************************/
 IBaseItem*
 makeItem(const RefPtr<FileInfo>& file_info,
@@ -353,14 +340,6 @@ makeMenuHeader(const RefPtr<FileInfo>& file_info,
                const string& path,
                const int children_count) {
   BaseItem* item = new MenuHeader(file_info, path, children_count);
-  item->init();
-  return item;
-}
-
-IBaseItem*
-makeMenuBrowser(const string& path,
-                const string& label) {
-  BaseItem* item = new MenuBrowser(path, label);
   item->init();
   return item;
 }

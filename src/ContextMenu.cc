@@ -47,7 +47,7 @@ class ContextMenu : public IContextMenu {
     add_trash_item();
     add_delete_item();
 
-    signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
+    //signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
     show_all();
   }
 
@@ -56,7 +56,7 @@ class ContextMenu : public IContextMenu {
 
   void
   pop_up(const guint button, const guint32 time) {
-    tree_set_sensitive(false);
+    //tree_set_sensitive(false);
     popup(button, time);
   }
 
@@ -91,7 +91,11 @@ class ContextMenu : public IContextMenu {
   void
   on_trash_item_activate() {
     file->trash();
-    delete(&parent_menu_item);
+    if(file_is_directory(file_info)) {
+      //FIXME: delete the corresponding DirectoryItem
+    } else {
+      delete(&parent_menu_item);
+    }
   }
 
   void

@@ -40,8 +40,6 @@ IBaseItem* makeItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
 IBaseItem* makeMenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info,
                           const std::string& path,
                           const int children_count);
-IBaseItem* makeMenuBrowser(const std::string& path,
-                           const std::string& label);
 
 } //namespace
 
