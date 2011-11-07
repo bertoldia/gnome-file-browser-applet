@@ -92,7 +92,7 @@ class ContextMenu : public IContextMenu {
   on_trash_item_activate() {
     file->trash();
     if(file_is_directory(file_info)) {
-      //FIXME: delete the corresponding DirectoryItem
+      delete(((Menu*)parent_menu_item.get_parent())->get_attach_widget());
     } else {
       delete(&parent_menu_item);
     }
