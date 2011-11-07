@@ -24,12 +24,10 @@ file_collate_comapator(IBaseItem* A, IBaseItem* B) {
 DirectoryListing::DirectoryListing(const Glib::RefPtr<Gio::FileInfo>& file_info,
                                    const std::string& path) :
   path(path),
-  file_info(file_info),
-  more_item(NULL) {
+  file_info(file_info) {
 }
 
 DirectoryListing::~DirectoryListing() {
-  if(more_item) delete(more_item);
 }
 
 void
@@ -155,7 +153,7 @@ DirectoryListing::show_limited() {
 
 void
 DirectoryListing::add_more_item() {
-  more_item = new ImageMenuItem(Stock::ADD);
+  ImageMenuItem* more_item = manage(new ImageMenuItem(Stock::ADD));
   more_item->set_always_show_image(true);
 
   stringstream text;
@@ -173,8 +171,7 @@ bool
 DirectoryListing::on_activate_more_item(const GdkEventButton* event) {
   set_active(MAX_ITEMS_SHOW_HARD + 1);
   show_all();
-  delete(more_item);
-  more_item = NULL;
+  delete(get_active());
   return true;
 }
 

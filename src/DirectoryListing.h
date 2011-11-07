@@ -12,7 +12,6 @@ class DirectoryListing : public Gtk::Menu {
   private:
     std::string path;
     Glib::RefPtr<Gio::FileInfo> file_info;
-    Gtk::ImageMenuItem* more_item;
 
     void clear();
     void remove_child(Gtk::Widget& widget);
