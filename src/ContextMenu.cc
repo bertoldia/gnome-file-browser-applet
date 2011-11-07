@@ -67,7 +67,7 @@ class ContextMenu : public IContextMenu {
     Widget* menu_shell = parent_menu_item.get_parent();
     while (menu_shell) {
       menu_shell->set_sensitive(sensitive);
-      menu_shell = ((MenuShell*)menu_shell)->get_parent_shell();
+      //menu_shell = ((MenuShell*)menu_shell)->get_parent_shell();
     }
   }
 
