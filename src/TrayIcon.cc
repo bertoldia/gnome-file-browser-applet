@@ -21,6 +21,10 @@
 #include <giomm.h>
 #include "TrayIcon.h"
 
+//#ifdef LIBGTKHOTKEY_FOUND
+#include <gtkhotkey.h>
+//#endif
+
 namespace FileBrowserApplet {
 
 using namespace std;
@@ -55,9 +59,31 @@ TrayIcon::TrayIcon() {
 
   signal_activate().connect(sigc::mem_fun(this, &TrayIcon::on_tray_icon_activate));
   signal_popup_menu().connect(sigc::mem_fun(this, &TrayIcon::on_popup_menu));
+
+  connect_hotkey();
 }
 
 TrayIcon::~TrayIcon() {
+}
+
+// No C++ bindings for libgtkhotkey.
+void
+TrayIcon::connect_hotkey() {
+    GError *error = NULL;
+    GtkHotkeyInfo *hot_key_info = gtk_hotkey_info_new ("fba",
+                                                       "fba",
+                                                       "<Shift><Ctrl>h",
+                                                       NULL);
+    g_signal_connect (G_OBJECT (hot_key_info),
+                      "activated",
+                      G_CALLBACK (&TrayIcon::on_hotkey_pressed),
+                      NULL);
+    gtk_hotkey_info_bind (hot_key_info, &error);
+}
+
+void
+TrayIcon::on_hotkey_pressed() {
+  getInstance().on_tray_icon_activate();
 }
 
 void

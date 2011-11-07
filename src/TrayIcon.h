@@ -38,6 +38,8 @@ class TrayIcon : public Gtk::StatusIcon {
     void init_meta_menu();
     void on_quit();
     void on_about();
+    void connect_hotkey();
+    static void on_hotkey_pressed();
 
     TrayIcon();
 
