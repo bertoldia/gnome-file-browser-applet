@@ -74,20 +74,9 @@ open_file_with_app(const RefPtr<AppInfo>& appinfo, const string& path) {
     return false;
   }
 
-  vector<string> files;
-  //if (!path.empty()) {
-    //files.push_back(File::create_for_path(path));
-  //}
-
+  vector<RefPtr<File> > files;
   if (!path.empty()) {
-    //FIXME: change this to use vector<RefPtr<File> > when update to more recent giomm
-    GList* gfiles = NULL;
-    gfiles = g_list_append (gfiles, (gpointer)g_file_new_for_path (path.c_str()));
-    g_chdir(path.c_str());
-    gboolean ret = g_app_info_launch (appinfo->gobj(), gfiles, NULL, NULL);
-    g_chdir(get_home_dir().c_str());
-    g_list_foreach (gfiles, (GFunc)g_object_unref, NULL);
-    return ret;
+    files.push_back(File::create_for_path(path));
   }
 
   RefPtr<AppLaunchContext> launch_context(0);
