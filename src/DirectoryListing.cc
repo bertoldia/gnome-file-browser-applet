@@ -160,15 +160,25 @@ DirectoryListing::add_more_item() {
   text << get_children().size() - MAX_ITEMS_SHOW_HARD << " more...";
   more_item->set_label(text.str());
 
-  more_item->signal_button_release_event().connect(sigc::mem_fun(this, &DirectoryListing::on_activate_more_item));
-  //more_item->signal_key_release_event().connect(sigc::mem_fun(this, &DirectoryListing::on_activate_more_item));
+  more_item->signal_button_release_event().connect(sigc::mem_fun(this, &DirectoryListing::on_button_release_more_item));
+  signal_key_release_event().connect(sigc::mem_fun(this, &DirectoryListing::on_key_release_more_item));
 
   append(*more_item);
   more_item->show();
 }
 
 bool
-DirectoryListing::on_activate_more_item(const GdkEventButton* event) {
+DirectoryListing::on_button_release_more_item(const GdkEventButton* event) {
+  return on_activate_more_item();
+}
+
+bool
+DirectoryListing::on_key_release_more_item(const GdkEventKey* event) {
+  return on_activate_more_item();
+}
+
+bool
+DirectoryListing::on_activate_more_item() {
   set_active(MAX_ITEMS_SHOW_HARD + 1);
   show_all();
   delete(get_active());
