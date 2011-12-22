@@ -21,9 +21,9 @@
 #include <giomm.h>
 #include "TrayIcon.h"
 
-//#ifdef LIBGTKHOTKEY_FOUND
+#ifdef LIBGTKHOTKEY_FOUND
 #include <gtkhotkey.h>
-//#endif
+#endif
 
 namespace FileBrowserApplet {
 
@@ -53,6 +53,9 @@ TrayIcon::getInstance() {
 
 TrayIcon::TrayIcon() {
   set("user-home");
+  set_title("Home");
+  set_tooltip_text("Browser your home folder");
+  set_has_tooltip(true);
 
   init_browser_menu();
   init_meta_menu();
@@ -60,13 +63,16 @@ TrayIcon::TrayIcon() {
   signal_activate().connect(sigc::mem_fun(this, &TrayIcon::on_tray_icon_activate));
   signal_popup_menu().connect(sigc::mem_fun(this, &TrayIcon::on_popup_menu));
 
+#ifdef LIBGTKHOTKEY_FOUND
   connect_hotkey();
+#endif
 }
 
 TrayIcon::~TrayIcon() {
 }
 
 // No C++ bindings for libgtkhotkey.
+#ifdef LIBGTKHOTKEY_FOUND
 void
 TrayIcon::connect_hotkey() {
     GError *error = NULL;
@@ -85,6 +91,7 @@ void
 TrayIcon::on_hotkey_pressed() {
   getInstance().on_tray_icon_activate();
 }
+#endif
 
 void
 TrayIcon::on_tray_icon_activate() {
