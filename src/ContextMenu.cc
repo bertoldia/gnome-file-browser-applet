@@ -22,6 +22,7 @@
 
 #include "ContextMenu.h"
 #include "PanelMenuBar.h"
+#include "TrayIcon.h"
 
 namespace FileBrowserApplet {
 
@@ -46,6 +47,7 @@ class ContextMenu : public IContextMenu {
 
     add_trash_item();
     add_delete_item();
+    add_open_with_item();
 
     //signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
     show_all();
@@ -73,9 +75,11 @@ class ContextMenu : public IContextMenu {
 
   void
   cleanup() {
-    tree_set_sensitive(true);
+    //tree_set_sensitive(true);
     //parent_menu_item.grab_focus();
-    parent_menu_item.get_parent()->grab_focus();
+    //parent_menu_item.get_parent()->grab_focus();
+
+    TrayIcon::getInstance().popdown();
   }
 
   void
@@ -103,6 +107,40 @@ class ContextMenu : public IContextMenu {
     ImageMenuItem* item = manage(new ImageMenuItem("_Delete Permanently", true));
     item->set_image((Widget&)*(new Image(Stock::DELETE, ICON_SIZE_SMALL_TOOLBAR)));
     append(*item);
+  }
+
+  void
+  add_open_with_item() {
+    SeparatorMenuItem* separator = manage(new SeparatorMenuItem());
+    append(*separator);
+
+    ImageMenuItem* item = manage(new ImageMenuItem("_Open With", true));
+    item->set_image((Widget&)*(new Image(Stock::OPEN, ICON_SIZE_SMALL_TOOLBAR)));
+    append(*item);
+
+    Menu* menu = new Menu();
+    item->set_submenu(*menu);
+
+    vector<RefPtr<AppInfo> > apps = AppInfo::get_all_for_type(file_info->get_content_type());
+    for (vector<RefPtr<AppInfo> >::iterator it = apps.begin(); it != apps.end(); it++) {
+      RefPtr<AppInfo> app = *it;
+      Image* image = new Image();
+      image->set((RefPtr<const Icon>)app->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
+      item = new ImageMenuItem(app->get_name(), true);
+      item->set_image(*image);
+      menu->append(*item);
+      item->signal_activate().connect(
+          sigc::bind(sigc::mem_fun(this, &ContextMenu::on_open_with_app_activate), app));
+    }
+
+    separator = manage(new SeparatorMenuItem());
+    append(*separator);
+  }
+
+  void
+  on_open_with_app_activate(RefPtr<AppInfo> app) {
+    open_file_with_app(app, path);
+    cleanup();
   }
 };
 
