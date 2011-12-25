@@ -46,8 +46,8 @@ class ContextMenu : public IContextMenu {
     file_info(file->query_info()) {
 
     add_trash_item();
-    add_delete_item();
     add_open_with_item();
+    add_delete_item();
 
     //signal_deactivate().connect(sigc::mem_fun(this, &ContextMenu::cleanup));
     show_all();
@@ -107,6 +107,20 @@ class ContextMenu : public IContextMenu {
     ImageMenuItem* item = manage(new ImageMenuItem("_Delete Permanently", true));
     item->set_image((Widget&)*(new Image(Stock::DELETE, ICON_SIZE_SMALL_TOOLBAR)));
     append(*item);
+
+    item->signal_activate().connect(sigc::mem_fun(this, &ContextMenu::on_delete_item_activate));
+  }
+
+  void
+  on_delete_item_activate() {
+    //TODO: add confirmation
+
+    file->remove();
+    if(file_is_directory(file_info)) {
+      delete(((Menu*)parent_menu_item.get_parent())->get_attach_widget());
+    } else {
+      delete(&parent_menu_item);
+    }
   }
 
   void
