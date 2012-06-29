@@ -179,9 +179,10 @@ DirectoryListing::on_key_release_more_item(const GdkEventKey* event) {
 
 bool
 DirectoryListing::on_activate_more_item() {
-  set_active(MAX_ITEMS_SHOW_HARD + 1);
+  Widget* more_menu_item = get_children().back();
+  remove(*more_menu_item);
+  delete(more_menu_item);
   show_all();
-  delete(get_active());
   return true;
 }
 
