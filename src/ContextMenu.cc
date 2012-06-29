@@ -39,7 +39,7 @@ class ContextMenu : public IContextMenu {
   Glib::RefPtr<Gio::FileInfo> file_info;
 
   public:
-  ContextMenu(const string& path, MenuItem& parent_menu_item):
+  ContextMenu(const string& path, Gtk::MenuItem& parent_menu_item):
     path(path),
     parent_menu_item(parent_menu_item),
     file(File::create_for_path(path)),

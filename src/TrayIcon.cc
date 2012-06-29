@@ -113,7 +113,7 @@ TrayIcon::init_browser_menu() {
 
 void
 TrayIcon::init_meta_menu() {
-  meta_menu = manage(new Menu());
+  meta_menu = manage(new Gtk::Menu());
 
   ImageMenuItem* item;
 

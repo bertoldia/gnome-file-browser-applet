@@ -113,7 +113,7 @@ void
 DirectoryListing::add_header(const unsigned int children_count) {
   IBaseItem* header = manage(makeMenuHeader(file_info, path, children_count));
   header->show();
-  append((MenuItem&)*header);
+  append((Gtk::MenuItem&)*header);
   add_separator();
 }
 
@@ -126,7 +126,7 @@ DirectoryListing::add_separator() {
 
 void
 DirectoryListing::add_error_item(const string& message) {
-  MenuItem* item = manage(new MenuItem(message));
+  Gtk::MenuItem* item = manage(new Gtk::MenuItem(message));
   item->show();
   item->set_sensitive(false);
   append(*item);
@@ -137,7 +137,7 @@ DirectoryListing::add_items(vector<IBaseItem*> items) {
   sort (items.begin(), items.end(), file_collate_comapator);
 
   for (vector<IBaseItem*>::iterator it = items.begin(); it != items.end(); it++) {
-      append((MenuItem&)*(*it));
+      append((Gtk::MenuItem&)*(*it));
   }
 }
 
