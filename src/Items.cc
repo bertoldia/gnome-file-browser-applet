@@ -204,7 +204,11 @@ class FileItem : public BaseItem {
       context_menu(NULL) {
     }
 
-    virtual ~FileItem(){}
+    virtual ~FileItem(){
+      if (context_menu != NULL) {
+        delete(context_menu);
+      }
+    }
 };
 /*************************** DesktopItem ***************************************/
 class DesktopItem : public FileItem {
@@ -213,7 +217,8 @@ class DesktopItem : public FileItem {
 
     Image* get_image_for_desktop_file() {
       Image* image = new Image();
-      image->set((RefPtr<const Icon>)appinfo->get_icon(), ICON_SIZE_SMALL_TOOLBAR);
+      RefPtr<const Icon> icon = appinfo->get_icon();
+      image->set(icon, ICON_SIZE_SMALL_TOOLBAR);
       return image;
     }
 
@@ -277,7 +282,11 @@ class DirectoryItem : public BaseItem {
       add_directory_submenu();
     }
 
-    virtual ~DirectoryItem(){}
+    virtual ~DirectoryItem() {
+      if (listing != NULL) {
+        delete(listing);
+      }
+    }
 };
 /*************************** MenuHeader ****************************************/
 class MenuHeader : public FileItem {

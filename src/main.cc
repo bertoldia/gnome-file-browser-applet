@@ -25,5 +25,7 @@ using namespace FileBrowserApplet;
 int main(int argc, char** argv) {
   Gtk::Main kit(argc, argv);
   TrayIcon& tray = TrayIcon::getInstance();
-  return tray.main(argc, argv);
+  int ret = tray.main(argc, argv);
+  TrayIcon::deleteInstance();
+  return ret;
 }

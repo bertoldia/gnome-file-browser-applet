@@ -39,12 +39,14 @@ class TrayIcon : public Gtk::StatusIcon {
     void on_quit();
     void on_about();
     void connect_hotkey();
+#ifndef LIBGTKHOTKEY_FOUND
     static void on_hotkey_pressed();
-
+#endif
     TrayIcon();
 
   public:
     static TrayIcon& getInstance();
+    static void deleteInstance();
     ~TrayIcon();
     int main(int argc, char** argv);
     void popdown();

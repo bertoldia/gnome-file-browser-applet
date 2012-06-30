@@ -28,6 +28,7 @@ DirectoryListing::DirectoryListing(const Glib::RefPtr<Gio::FileInfo>& file_info,
 }
 
 DirectoryListing::~DirectoryListing() {
+  clear();
 }
 
 void
@@ -76,6 +77,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
 
     if ((!prefs.show_hidden() && child_info->is_hidden()) ||
         (prefs.show_dirs_only() && !file_is_directory(child_info))) {
+      child_info.reset();
       continue;
     }
 
@@ -85,6 +87,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
     } else {
       files.push_back(item);
     }
+    child_info.reset();
   }
 
   add_header(directories.size() + files.size());

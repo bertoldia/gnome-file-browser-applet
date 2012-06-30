@@ -50,6 +50,12 @@ TrayIcon::getInstance() {
   return *instance;
 }
 
+void
+TrayIcon::deleteInstance() {
+  delete(instance);
+  instance = NULL;
+}
+
 
 TrayIcon::TrayIcon() {
   set("user-home");
