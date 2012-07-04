@@ -21,6 +21,8 @@ class Preferences {
     bool show_thumbnails();
     bool confirm_exec_action();
     bool show_tooltips();
+    bool return_home_on_close(); // only relevant if use_single_menu is true.
+    bool use_single_menu();
     std::string get_alt_file_action();
     std::string get_alt_directory_action();
 };

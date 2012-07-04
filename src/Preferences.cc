@@ -51,6 +51,16 @@ Preferences::show_tooltips() {
   return true;
 }
 
+bool
+Preferences::return_home_on_close() {
+  return false;
+}
+
+bool
+Preferences::use_single_menu() {
+  return true;
+}
+
 string
 Preferences::get_alt_file_action() {
   return "gvim";
