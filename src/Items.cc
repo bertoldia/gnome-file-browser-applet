@@ -172,7 +172,7 @@ class FileItem : public BaseItem {
       open_file(path);
     }
 
-    bool on_button_release(const GdkEventButton* event) {
+    virtual bool on_button_release(const GdkEventButton* event) {
       switch (event->button) {
         case 3:
           on_right_click(event);
@@ -182,7 +182,7 @@ class FileItem : public BaseItem {
           on_middle_click();
           return true;
         default:
-          return false;
+          return on_left_click();
       }
     }
 
@@ -199,6 +199,10 @@ class FileItem : public BaseItem {
     virtual void on_right_click(const GdkEventButton* event) {
       IContextMenu* cm = get_context_menu();
       cm->pop_up(0, event->time);
+    }
+
+    virtual bool on_left_click() {
+      return false;
     }
 
   public:
