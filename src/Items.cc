@@ -70,7 +70,11 @@ class BaseItem : public IBaseItem {
     RefPtr<FileInfo> file_info;
     string path;
 
-    virtual void add_image(){};
+    virtual void add_image() {
+      Image* image(get_image_for_mime_type());
+      _set_image(image);
+    };
+
     virtual void add_tooltip(){};
     virtual void add_markup(){};
     virtual void connect_signals(){};
@@ -265,11 +269,6 @@ class DirectoryItem : public BaseItem {
     }
 
   protected:
-    virtual void add_image() {
-      Image* image(get_image_for_mime_type());
-      _set_image(image);
-    }
-
     virtual void add_tooltip(){}
     virtual void connect_signals() {}
 
@@ -291,11 +290,6 @@ class DirectoryItem : public BaseItem {
 /*************************** MenuHeaderItem ************************************/
 class MenuHeaderItem : public FileItem {
   protected:
-    virtual void add_image() {
-      Image* image(get_image_for_mime_type());
-      _set_image(image);
-    }
-
     virtual void add_tooltip() {
     }
 
