@@ -24,6 +24,7 @@ class DirectoryListing : public Gtk::Menu {
     void add_items(std::vector<IBaseItem*> items);
     void show_limited();
     void add_more_item();
+    void add_up_dir_item(const Glib::RefPtr<Gio::File>& directory);
     bool on_button_release_more_item(const GdkEventButton* event);
     bool on_key_release_more_item(const GdkEventKey* event);
     bool on_activate_more_item();

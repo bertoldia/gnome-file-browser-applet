@@ -65,6 +65,9 @@ DirectoryListing::populate() {
 void
 DirectoryListing::query_file_system_sync() {
   RefPtr<File> directory = File::create_for_path(path);
+  // TODO: This is in the wrong place in the menu. It should go after the menu
+  // header.
+  add_up_dir_item(directory);
   try {
     RefPtr<FileEnumerator> children = directory->enumerate_children();
     add_children_entries(children);
@@ -176,6 +179,16 @@ DirectoryListing::add_more_item() {
 
   append(*more_item);
   more_item->show();
+}
+
+void
+DirectoryListing::add_up_dir_item(const RefPtr<File>& directory) {
+  if (Preferences::getInstance().use_single_menu() &&
+      directory->has_parent()) {
+    IBaseItem* up_dir_item = manage(makeUpDirItem(directory));
+    append(*up_dir_item);
+    up_dir_item->show();
+  }
 }
 
 bool
