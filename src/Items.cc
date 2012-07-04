@@ -367,7 +367,10 @@ makeItem(const RefPtr<FileInfo>& file_info,
   BaseItem* item = NULL;
 
   if (file_is_directory(file_info)) {
-      item = new DirectoryItem(file_info, path);
+      if (Preferences::getInstance().use_single_menu())
+        item = new SingleMenuDirectoryItem(file_info, path);
+      else
+        item = new DirectoryItem(file_info, path);
   } else {
     RefPtr<AppInfo> appinfo = DesktopAppInfo::create_from_filename(path);
     if (appinfo) {
