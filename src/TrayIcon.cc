@@ -101,6 +101,7 @@ TrayIcon::on_hotkey_pressed() {
 
 void
 TrayIcon::on_tray_icon_activate() {
+  //browser_menu->set_path(root_file_info, root_path);
   browser_menu->refresh();
   popup_menu_at_position(*browser_menu, 0, gtk_get_current_event_time());
 }
