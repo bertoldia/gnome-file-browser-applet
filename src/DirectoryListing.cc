@@ -38,6 +38,13 @@ DirectoryListing::refresh() {
 }
 
 void
+DirectoryListing::set_path(const Glib::RefPtr<Gio::FileInfo>& new_file_info,
+                           const std::string new_path) {
+  file_info = new_file_info;
+  path = new_path;
+}
+
+void
 DirectoryListing::clear () {
   sigc::slot<void, Widget&> slot = mem_fun(this, &DirectoryListing::remove_child);
   foreach(slot);
