@@ -291,6 +291,30 @@ class DirectoryItem : public BaseItem {
       }
     }
 };
+/*************************** SingleMenuDirectoryItem ************************************/
+class SingleMenuDirectoryItem : public FileItem {
+  protected:
+    virtual void add_markup(){};
+
+    virtual bool on_left_click() {
+      DirectoryListing* listing = (DirectoryListing*)get_parent();
+      listing->set_path(file_info, path);
+      listing->refresh();
+      return true;
+    }
+
+    virtual void add_tooltip() {
+      set_tooltip_text(path);
+    }
+
+  public:
+    explicit SingleMenuDirectoryItem(const RefPtr<FileInfo>& file_info,
+                                     const string& path) :
+      FileItem(file_info, path) {
+    }
+
+    virtual ~SingleMenuDirectoryItem() {}
+};
 /*************************** MenuHeaderItem ************************************/
 class MenuHeaderItem : public FileItem {
   protected:
