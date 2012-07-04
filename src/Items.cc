@@ -288,8 +288,8 @@ class DirectoryItem : public BaseItem {
       }
     }
 };
-/*************************** MenuHeader ****************************************/
-class MenuHeader : public FileItem {
+/*************************** MenuHeaderItem ************************************/
+class MenuHeaderItem : public FileItem {
   protected:
     virtual void add_image() {
       Image* image(get_image_for_mime_type());
@@ -317,14 +317,14 @@ class MenuHeader : public FileItem {
     }
 
   public:
-    explicit MenuHeader(const RefPtr<FileInfo>& file_info,
-                        const string& path,
-                        const int children_count) :
+    explicit MenuHeaderItem(const RefPtr<FileInfo>& file_info,
+                            const string& path,
+                            const int children_count) :
       FileItem(file_info, path) {
         set_tooltip_item_count(children_count);
     }
 
-    virtual ~MenuHeader(){}
+    virtual ~MenuHeaderItem(){}
 };
 /*************************** Factories *****************************************/
 IBaseItem*
@@ -347,13 +347,12 @@ makeItem(const RefPtr<FileInfo>& file_info,
 }
 
 IBaseItem*
-makeMenuHeader(const RefPtr<FileInfo>& file_info,
-               const string& path,
-               const int children_count) {
-  BaseItem* item = new MenuHeader(file_info, path, children_count);
+makeMenuHeaderItem(const RefPtr<FileInfo>& file_info,
+                   const string& path,
+                   const int children_count) {
+  BaseItem* item = new MenuHeaderItem(file_info, path, children_count);
   item->init();
   return item;
 }
 /*******************************************************************************/
-
 } //namespace

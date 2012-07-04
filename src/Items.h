@@ -37,9 +37,9 @@ class IBaseItem : public Gtk::ImageMenuItem {
 
 IBaseItem* makeItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
                     const std::string& path);
-IBaseItem* makeMenuHeader(const Glib::RefPtr<Gio::FileInfo>& file_info,
-                          const std::string& path,
-                          const int children_count);
+IBaseItem* makeMenuHeaderItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                              const std::string& path,
+                              const int children_count);
 
 } //namespace
 

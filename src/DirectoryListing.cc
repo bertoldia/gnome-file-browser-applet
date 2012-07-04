@@ -114,7 +114,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
 
 void
 DirectoryListing::add_header(const unsigned int children_count) {
-  IBaseItem* header = manage(makeMenuHeader(file_info, path, children_count));
+  IBaseItem* header = manage(makeMenuHeaderItem(file_info, path, children_count));
   header->show();
   append((Gtk::MenuItem&)*header);
   add_separator();
