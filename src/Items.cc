@@ -315,6 +315,18 @@ class SingleMenuDirectoryItem : public FileItem {
 
     virtual ~SingleMenuDirectoryItem() {}
 };
+/*************************** UpDirItem *****************************************/
+class UpDirItem : public SingleMenuDirectoryItem {
+  public:
+    explicit UpDirItem(const RefPtr<File>& directory) :
+      SingleMenuDirectoryItem(directory->get_parent()->query_info(),
+                              directory->get_parent()->get_path()) {
+
+        // Override the directories display name.
+        // TODO: Make this better...
+        set_label("..");
+    }
+};
 /*************************** MenuHeaderItem ************************************/
 class MenuHeaderItem : public FileItem {
   protected:
@@ -355,7 +367,7 @@ makeItem(const RefPtr<FileInfo>& file_info,
   BaseItem* item = NULL;
 
   if (file_is_directory(file_info)) {
-    item = new DirectoryItem(file_info, path);
+      item = new DirectoryItem(file_info, path);
   } else {
     RefPtr<AppInfo> appinfo = DesktopAppInfo::create_from_filename(path);
     if (appinfo) {
@@ -373,6 +385,13 @@ makeMenuHeaderItem(const RefPtr<FileInfo>& file_info,
                    const string& path,
                    const int children_count) {
   BaseItem* item = new MenuHeaderItem(file_info, path, children_count);
+  item->init();
+  return item;
+}
+
+IBaseItem*
+makeUpDirItem(const Glib::RefPtr<Gio::File>& directory) {
+  BaseItem* item = new UpDirItem(directory);
   item->init();
   return item;
 }
