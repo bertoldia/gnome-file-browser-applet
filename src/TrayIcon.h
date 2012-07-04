@@ -32,6 +32,8 @@ class TrayIcon : public Gtk::StatusIcon {
     DirectoryListing* browser_menu;
     Gtk::Menu* meta_menu;
     Gtk::CheckMenuItem* show_hidden_item;
+    std::string root_path;
+    Glib::RefPtr<Gio::FileInfo> root_file_info;
 
     void on_tray_icon_activate();
     void on_popup_menu(guint button, guint32 activate_time);

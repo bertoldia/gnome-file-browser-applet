@@ -112,8 +112,9 @@ TrayIcon::on_popup_menu(guint button, guint32 activate_time) {
 
 void
 TrayIcon::init_browser_menu() {
-  string path = get_home_dir();
-  browser_menu = manage(new DirectoryListing(File::create_for_path(path)->query_info(), path));
+  this->root_path = get_home_dir();
+  this->root_file_info = File::create_for_path(root_path)->query_info();
+  browser_menu = manage(new DirectoryListing(root_file_info, root_path));
 }
 
 void
