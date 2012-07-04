@@ -35,6 +35,7 @@ void
 DirectoryListing::refresh() {
   clear();
   populate();
+  select_first();
 }
 
 void

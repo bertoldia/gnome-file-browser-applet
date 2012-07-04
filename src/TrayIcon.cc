@@ -103,7 +103,6 @@ void
 TrayIcon::on_tray_icon_activate() {
   browser_menu->refresh();
   popup_menu_at_position(*browser_menu, 0, gtk_get_current_event_time());
-  browser_menu->select_first();
 }
 
 void
