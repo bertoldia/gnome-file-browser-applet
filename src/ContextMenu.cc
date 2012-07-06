@@ -23,6 +23,7 @@
 #include "ContextMenu.h"
 #include "PanelMenuBar.h"
 #include "TrayIcon.h"
+#include "Preferences.h"
 
 namespace FileBrowserApplet {
 
@@ -95,7 +96,8 @@ class ContextMenu : public IContextMenu {
   void
   on_trash_item_activate() {
     file->trash();
-    if(file_is_directory(file_info)) {
+    if(file_is_directory(file_info) &&
+       !Preferences::getInstance().use_single_menu()) {
       delete(((Menu*)parent_menu_item.get_parent())->get_attach_widget());
     } else {
       delete(&parent_menu_item);
@@ -116,7 +118,8 @@ class ContextMenu : public IContextMenu {
     //TODO: add confirmation
 
     file->remove();
-    if(file_is_directory(file_info)) {
+    if(file_is_directory(file_info) &&
+       !Preferences::getInstance().use_single_menu()) {
       delete(((Menu*)parent_menu_item.get_parent())->get_attach_widget());
     } else {
       delete(&parent_menu_item);
