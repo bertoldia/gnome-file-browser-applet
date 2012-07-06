@@ -317,6 +317,9 @@ class SingleMenuDirectoryItem : public FileItem {
 };
 /*************************** UpDirItem *****************************************/
 class UpDirItem : public SingleMenuDirectoryItem {
+  protected:
+    virtual void add_markup() { bold(); }
+
   public:
     explicit UpDirItem(const RefPtr<File>& directory) :
       SingleMenuDirectoryItem(directory->get_parent()->query_info(),
