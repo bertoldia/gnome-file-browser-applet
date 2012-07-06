@@ -65,9 +65,6 @@ DirectoryListing::populate() {
 void
 DirectoryListing::query_file_system_sync() {
   RefPtr<File> directory = File::create_for_path(path);
-  // TODO: This is in the wrong place in the menu. It should go after the menu
-  // header.
-  add_up_dir_item(directory);
   try {
     RefPtr<FileEnumerator> children = directory->enumerate_children();
     add_children_entries(children);
@@ -102,6 +99,7 @@ DirectoryListing::add_children_entries(const RefPtr<FileEnumerator>& children) {
   }
 
   add_header(directories.size() + files.size());
+  add_up_dir_item(File::create_for_path(path));
 
   if (directories.empty() && files.empty()) {
     add_error_item("(Empty)");
