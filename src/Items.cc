@@ -295,6 +295,7 @@ class DirectoryItem : public BaseItem {
 class SingleMenuDirectoryItem : public FileItem {
   protected:
     virtual void add_markup(){};
+
     virtual void add_image() {
       BaseItem::add_image();
     }
