@@ -159,8 +159,8 @@ TrayIcon::init_meta_menu() {
 
 void
 TrayIcon::add_home_button() {
-  MenuItem* item = makeHomeShortCutItem(this->root_file_info,
-                                         this->root_path);
+  Gtk::MenuItem* item = makeHomeShortCutItem(this->root_file_info,
+                                             this->root_path);
   item->show();
   browser_menu->insert(*item, 0);
 
