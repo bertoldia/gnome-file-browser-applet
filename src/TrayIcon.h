@@ -43,6 +43,7 @@ class TrayIcon : public Gtk::StatusIcon {
     void on_show_hidden_toggled();
     void on_about();
     void connect_hotkey();
+    void add_home_button();
 #ifndef LIBGTKHOTKEY_FOUND
     static void on_hotkey_pressed();
 #endif

@@ -20,6 +20,7 @@
 #include <giomm.h>
 #include "TrayIcon.h"
 #include "Preferences.h"
+#include "Items.h"
 
 #ifdef LIBGTKHOTKEY_FOUND
 #include <gtkhotkey.h>
@@ -101,8 +102,20 @@ TrayIcon::on_hotkey_pressed() {
 
 void
 TrayIcon::on_tray_icon_activate() {
-  //browser_menu->set_path(root_file_info, root_path);
+  if (Preferences::getInstance().return_home_on_close())
+    browser_menu->set_path(root_file_info, root_path);
+
   browser_menu->refresh();
+
+  if (Preferences::getInstance().use_single_menu() &&
+      !Preferences::getInstance().return_home_on_close()) {
+    RefPtr<File> root_file = File::create_for_path(root_path);
+    RefPtr<File> current_file = File::create_for_path(browser_menu->get_path());
+    if (!root_file->equal(current_file)) {
+      add_home_button();
+    }
+  }
+
   popup_menu_at_position(*browser_menu, 0, gtk_get_current_event_time());
 }
 
@@ -113,18 +126,16 @@ TrayIcon::on_popup_menu(guint button, guint32 activate_time) {
 
 void
 TrayIcon::init_browser_menu() {
-  this->root_path = get_home_dir();
+  this->root_path = Preferences::getInstance().get_root_directory();
   this->root_file_info = File::create_for_path(root_path)->query_info();
-  browser_menu = manage(new DirectoryListing(root_file_info, root_path));
+  this->browser_menu = manage(new DirectoryListing(root_file_info, root_path));
 }
 
 void
 TrayIcon::init_meta_menu() {
   meta_menu = manage(new Gtk::Menu());
 
-  ImageMenuItem* item;
-
-  item = manage(new ImageMenuItem(Stock::PREFERENCES));
+  ImageMenuItem* item = manage(new ImageMenuItem(Stock::PREFERENCES));
   meta_menu->append(*item);
 
   item = manage(new ImageMenuItem(Stock::ABOUT));
@@ -144,6 +155,16 @@ TrayIcon::init_meta_menu() {
     connect(sigc::mem_fun(this, &TrayIcon::on_show_hidden_toggled));
 
   meta_menu->show_all();
+}
+
+void
+TrayIcon::add_home_button() {
+  MenuItem* item = makeHomeShortCutItem(this->root_file_info,
+                                         this->root_path);
+  item->show();
+  browser_menu->insert(*item, 0);
+
+  cout << "Adding home\n";
 }
 
 void
