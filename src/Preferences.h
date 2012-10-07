@@ -25,6 +25,7 @@ class Preferences {
     bool use_single_menu();
     std::string get_alt_file_action();
     std::string get_alt_directory_action();
+    std::string get_root_directory();
 };
 
 }

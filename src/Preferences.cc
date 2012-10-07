@@ -1,8 +1,10 @@
+#include <glibmm.h>
 #include "Preferences.h"
 
 namespace FileBrowserApplet {
 
 using namespace std;
+using namespace Glib;
 
 // initialize static member
 Preferences* Preferences::instance(NULL);
@@ -53,7 +55,8 @@ Preferences::show_tooltips() {
 
 bool
 Preferences::return_home_on_close() {
-  return false;
+  bool return_home_on_close = false;
+  return return_home_on_close && use_single_menu();
 }
 
 bool
@@ -69,6 +72,11 @@ Preferences::get_alt_file_action() {
 string
 Preferences::get_alt_directory_action() {
   return "gnome-terminal";
+}
+
+string
+Preferences::get_root_directory() {
+  return get_home_dir();
 }
 
 }
