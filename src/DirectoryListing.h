@@ -36,6 +36,7 @@ class DirectoryListing : public Gtk::Menu {
     void refresh();
     void set_path(const Glib::RefPtr<Gio::FileInfo>& new_file_info,
                   const std::string new_path);
+    std::string get_path();
 };
 
 } //namespace
