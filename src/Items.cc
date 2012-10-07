@@ -319,6 +319,26 @@ class SingleMenuDirectoryItem : public FileItem {
 
     virtual ~SingleMenuDirectoryItem() {}
 };
+/*************************** HomeShortCutItem *******************************************/
+class HomeShortCutItem : public SingleMenuDirectoryItem {
+  protected:
+    virtual void add_markup(){};
+    virtual void add_image() {
+      Image* image = new Image();
+      image->set(Gtk::Stock::HOME,
+                 ICON_SIZE_SMALL_TOOLBAR);
+      _set_image(image);
+    }
+
+  public:
+    explicit HomeShortCutItem(const RefPtr<FileInfo>& file_info,
+                              const string& path) :
+      SingleMenuDirectoryItem(file_info, path) {
+        set_label("Home");
+    }
+
+    virtual ~HomeShortCutItem() {}
+};
 /*************************** UpDirItem *****************************************/
 class UpDirItem : public SingleMenuDirectoryItem {
   protected:
@@ -402,6 +422,14 @@ makeMenuHeaderItem(const RefPtr<FileInfo>& file_info,
 IBaseItem*
 makeUpDirItem(const Glib::RefPtr<Gio::File>& directory) {
   BaseItem* item = new UpDirItem(directory);
+  item->init();
+  return item;
+}
+
+IBaseItem*
+makeHomeShortCutItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                     const std::string& path) {
+  BaseItem* item = new HomeShortCutItem(file_info, path);
   item->init();
   return item;
 }

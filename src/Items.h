@@ -41,6 +41,8 @@ IBaseItem* makeMenuHeaderItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
                               const std::string& path,
                               const int children_count);
 IBaseItem* makeUpDirItem(const Glib::RefPtr<Gio::File>& directory);
+IBaseItem* makeHomeShortCutItem(const Glib::RefPtr<Gio::FileInfo>& file_info,
+                                const std::string& path);
 
 } //namespace
 
