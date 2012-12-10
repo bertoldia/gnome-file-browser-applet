@@ -31,12 +31,14 @@ class TrayIcon : public Gtk::StatusIcon {
     static TrayIcon* instance;
     DirectoryListing* browser_menu;
     Gtk::Menu* meta_menu;
+    Gtk::CheckMenuItem* show_hidden_item;
 
     void on_tray_icon_activate();
     void on_popup_menu(guint button, guint32 activate_time);
     void init_browser_menu();
     void init_meta_menu();
     void on_quit();
+    void on_show_hidden_toggled();
     void on_about();
     void connect_hotkey();
 #ifndef LIBGTKHOTKEY_FOUND

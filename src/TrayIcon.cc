@@ -17,9 +17,9 @@
  * 51 Franklin Street, Fifth Floor
  * Boston, MA 02110-1301, USA.
  */
-
 #include <giomm.h>
 #include "TrayIcon.h"
+#include "Preferences.h"
 
 #ifdef LIBGTKHOTKEY_FOUND
 #include <gtkhotkey.h>
@@ -134,12 +134,25 @@ TrayIcon::init_meta_menu() {
   meta_menu->append(*item);
   item->signal_activate().connect(sigc::mem_fun(this, &TrayIcon::on_quit));
 
+  SeparatorMenuItem* separator = manage(new SeparatorMenuItem());
+  meta_menu->append(*separator);
+
+  show_hidden_item = manage(new CheckMenuItem("Show hidden"));
+  meta_menu->append(*show_hidden_item);
+  show_hidden_item->signal_toggled().
+    connect(sigc::mem_fun(this, &TrayIcon::on_show_hidden_toggled));
+
   meta_menu->show_all();
 }
 
 void
 TrayIcon::on_quit() {
   Gtk::Main::quit();
+}
+
+void
+TrayIcon::on_show_hidden_toggled() {
+  Preferences::getInstance().show_hidden(show_hidden_item->get_active());
 }
 
 void
