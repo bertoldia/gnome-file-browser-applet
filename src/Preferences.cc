@@ -7,7 +7,8 @@ using namespace std;
 // initialize static member
 Preferences* Preferences::instance(NULL);
 
-Preferences::Preferences() {
+Preferences::Preferences():
+  _show_hidden(false) {
   // load prefs
   // load ui file
 }
@@ -22,7 +23,12 @@ Preferences::getInstance() {
 
 bool
 Preferences::show_hidden() {
-  return false;
+  return _show_hidden;
+}
+
+void
+Preferences::show_hidden(bool hidden) {
+  _show_hidden = hidden;
 }
 
 bool

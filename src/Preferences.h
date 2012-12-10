@@ -1,5 +1,5 @@
-#ifndef PREFERENCES
-#define PREFERENCES
+#ifndef PREFERENCES_H
+#define PREFERENCES_H
 
 #include <iostream>
 
@@ -8,6 +8,7 @@ namespace FileBrowserApplet {
 class Preferences {
   private:
     static Preferences* instance;
+    bool _show_hidden;
 
     explicit Preferences();
 
@@ -15,6 +16,7 @@ class Preferences {
     static Preferences& getInstance();
 
     bool show_hidden();
+    void show_hidden(bool hidden);
     bool show_dirs_only();
     bool show_thumbnails();
     bool confirm_exec_action();
