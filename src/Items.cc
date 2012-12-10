@@ -299,7 +299,9 @@ class MenuHeader : public FileItem {
     virtual void add_tooltip() {
     }
 
-    virtual void add_markup(){};
+    virtual void add_markup() {
+      bold();
+    };
 
     virtual bool on_middle_click() {
       return open_file_with_app(Preferences::getInstance().get_alt_directory_action(), path);
