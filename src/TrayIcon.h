@@ -32,6 +32,7 @@ class TrayIcon : public Gtk::StatusIcon {
     DirectoryListing* browser_menu;
     Gtk::Menu* meta_menu;
     Gtk::CheckMenuItem* show_hidden_item;
+    Gtk::CheckMenuItem* use_single_menu_item;
     std::string root_path;
     Glib::RefPtr<Gio::FileInfo> root_file_info;
 
@@ -41,6 +42,7 @@ class TrayIcon : public Gtk::StatusIcon {
     void init_meta_menu();
     void on_quit();
     void on_show_hidden_toggled();
+    void on_use_single_menu_toggled();
     void on_about();
     void connect_hotkey();
     void add_home_button();

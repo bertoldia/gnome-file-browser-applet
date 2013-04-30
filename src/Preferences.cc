@@ -10,7 +10,8 @@ using namespace Glib;
 Preferences* Preferences::instance(NULL);
 
 Preferences::Preferences():
-  _show_hidden(false) {
+  _show_hidden(false),
+  _use_single_menu(false) {
   // load prefs
   // load ui file
 }
@@ -61,7 +62,12 @@ Preferences::return_home_on_close() {
 
 bool
 Preferences::use_single_menu() {
-  return true;
+  return _use_single_menu;
+}
+
+void
+Preferences::use_single_menu(bool single_menu) {
+ _use_single_menu = single_menu;
 }
 
 string

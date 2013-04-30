@@ -9,6 +9,7 @@ class Preferences {
   private:
     static Preferences* instance;
     bool _show_hidden;
+    bool _use_single_menu;
 
     explicit Preferences();
 
@@ -23,6 +24,7 @@ class Preferences {
     bool show_tooltips();
     bool return_home_on_close(); // only relevant if use_single_menu is true.
     bool use_single_menu();
+    void use_single_menu(bool single_menu);
     std::string get_alt_file_action();
     std::string get_alt_directory_action();
     std::string get_root_directory();

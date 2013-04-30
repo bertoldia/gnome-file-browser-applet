@@ -154,6 +154,11 @@ TrayIcon::init_meta_menu() {
   show_hidden_item->signal_toggled().
     connect(sigc::mem_fun(this, &TrayIcon::on_show_hidden_toggled));
 
+  use_single_menu_item = manage(new CheckMenuItem("Use Single Menu"));
+  meta_menu->append(*use_single_menu_item);
+  use_single_menu_item->signal_toggled().
+    connect(sigc::mem_fun(this, &TrayIcon::on_use_single_menu_toggled));
+
   meta_menu->show_all();
 }
 
@@ -175,6 +180,11 @@ TrayIcon::on_quit() {
 void
 TrayIcon::on_show_hidden_toggled() {
   Preferences::getInstance().show_hidden(show_hidden_item->get_active());
+}
+
+void
+TrayIcon::on_use_single_menu_toggled() {
+  Preferences::getInstance().use_single_menu(use_single_menu_item->get_active());
 }
 
 void
